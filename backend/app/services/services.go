@@ -3,10 +3,10 @@ package services
 import (
 	"context"
 	"fmt"
-	"plan-farm/libs/connection"
-	"plan-farm/libs/function"
 	"plan-farm/myconfig/mymodels"
 	"plan-farm/myconfig/myvar"
+	"plan-farm/pkg/myconnect"
+	"plan-farm/pkg/myfunction"
 	"strconv"
 
 	"google.golang.org/api/iterator"
@@ -14,7 +14,7 @@ import (
 
 func FirebaseGetByCollection(CollectionName string) ([]map[string]interface{}, error) {
 	var mydata = []map[string]interface{}{}
-	fs := connection.FirebaseGetDB()
+	fs := myconnect.FirebaseGetDB()
 	iter := fs.Collection(CollectionName).Documents(context.TODO())
 	defer iter.Stop()
 	for {
@@ -23,7 +23,7 @@ func FirebaseGetByCollection(CollectionName string) ([]map[string]interface{}, e
 			break
 		}
 		if err != nil {
-			return nil, function.MyErrFormat(err)
+			return nil, myfunction.MyErrFormat(err)
 		}
 		mydata = append(mydata, doc.Data())
 	}
@@ -48,18 +48,18 @@ func WaterAreaCal(userData mymodels.BodyWaterAreaCal) (interface{}, error) {
 		if checkArea {
 			areaValue, err = strconv.ParseFloat(fmt.Sprint(v["ปริมาณ"]), 64)
 			if err != nil {
-				return nil, function.MyErrFormat(err)
+				return nil, myfunction.MyErrFormat(err)
 			}
 			break
 		}
 	}
 	nDay, err := strconv.ParseFloat(userData.NumberDay, 64)
 	if err != nil {
-		return nil, function.MyErrFormat(err)
+		return nil, myfunction.MyErrFormat(err)
 	}
 	nPer, err := strconv.ParseFloat(userData.NumberPerson, 64)
 	if err != nil {
-		return nil, function.MyErrFormat(err)
+		return nil, myfunction.MyErrFormat(err)
 	}
 	result := areaValue * nDay * nPer
 	return result, nil
@@ -82,7 +82,7 @@ func WaterIndustryCal(userData mymodels.BodyWaterIndustryCal) (interface{}, erro
 		if checkFound {
 			industryValue, err = strconv.ParseFloat(fmt.Sprint(v["ปริมาณ"]), 64)
 			if err != nil {
-				return nil, function.MyErrFormat(err)
+				return nil, myfunction.MyErrFormat(err)
 			}
 			break
 		}

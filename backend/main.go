@@ -2,15 +2,15 @@ package main
 
 import (
 	"os"
-	"plan-farm/libs/connection"
 	"plan-farm/myconfig/myserver"
+	"plan-farm/pkg/myconnect"
 
 	"github.com/joho/godotenv"
 )
 
 func main() {
 	godotenv.Load(".env")
-	connection.FirebaseConnect()
+	myconnect.FirebaseConnect()
 	app := myserver.New()
 	myserver.Route(app)
 	myserver.Run(app, os.Getenv("PORT"))
