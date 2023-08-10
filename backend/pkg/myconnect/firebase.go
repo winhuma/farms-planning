@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"plan-farm/pkg/myfunction"
+	"plan-farm/pkg/myfunc"
 
 	"cloud.google.com/go/firestore"
 	"cloud.google.com/go/storage"
@@ -19,7 +19,7 @@ func FirebaseConnect() *firebase.App {
 	opt := option.WithCredentialsJSON([]byte(os.Getenv("FIREBASE_SDK")))
 	app, err := firebase.NewApp(context.Background(), nil, opt)
 	if err != nil {
-		log.Fatal().Msg(myfunction.MyErrFormat(err).Error())
+		log.Fatal().Msg(myfunc.MyErrFormat(err).Error())
 	}
 	FIREBASE = app
 	return app
@@ -28,11 +28,11 @@ func FirebaseConnect() *firebase.App {
 func FirebaseGetStorage() *storage.BucketHandle {
 	storage, err := FIREBASE.Storage(context.TODO())
 	if err != nil {
-		log.Fatal().Msg(myfunction.MyErrFormat(err).Error())
+		log.Fatal().Msg(myfunc.MyErrFormat(err).Error())
 	}
 	bucket, err := storage.Bucket(os.Getenv("FIREBASE_BUCKET"))
 	if err != nil {
-		log.Fatal().Msg(myfunction.MyErrFormat(err).Error())
+		log.Fatal().Msg(myfunc.MyErrFormat(err).Error())
 	}
 	return bucket
 }
@@ -40,7 +40,7 @@ func FirebaseGetStorage() *storage.BucketHandle {
 func FirebaseGetDB() *firestore.Client {
 	myfirestore, err := FIREBASE.Firestore(context.TODO())
 	if err != nil {
-		log.Fatal().Msg(myfunction.MyErrFormat(err).Error())
+		log.Fatal().Msg(myfunc.MyErrFormat(err).Error())
 	}
 	return myfirestore
 }

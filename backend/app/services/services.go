@@ -1,108 +1,104 @@
 package services
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
+	"plan-farm/app/repo"
 	"plan-farm/myconfig/mymodels"
-	"plan-farm/myconfig/myvar"
-	"plan-farm/pkg/myconnect"
-	"plan-farm/pkg/myfunction"
+	"plan-farm/pkg/myfunc"
 	"strconv"
-
-	"google.golang.org/api/iterator"
 )
 
-func FirebaseGetByCollection(CollectionName string) ([]map[string]interface{}, error) {
-	var mydata = []map[string]interface{}{}
-	fs := myconnect.FirebaseGetDB()
-	iter := fs.Collection(CollectionName).Documents(context.TODO())
-	defer iter.Stop()
-	for {
-		doc, err := iter.Next()
-		if err == iterator.Done {
-			break
-		}
+// ################### Area ####################
+
+func WaterRequireAreaGetAll() (result interface{}, err error) {
+	return repo.WaterRequireAreaGetAll()
+}
+
+func WaterRequireAreaCal(userData mymodels.BodyWaterAreaCal) (result interface{}, err error) {
+	areaData, err := repo.WaterRequireAreaGetByID(userData.AreaID)
+	if err != nil {
+		return nil, err
+	}
+
+	result = FormulaWaterArea(areaData.Value, userData.NumberDay, userData.NumberPerson)
+	return result, nil
+}
+
+// ################### Industry ####################
+
+func WaterRequireIndustryGetAll() (result interface{}, err error) {
+	return repo.WaterRequireIndustryGetAll()
+}
+
+func WaterIndustryCal(userData mymodels.BodyWaterIndustryCal) (result interface{}, err error) {
+	industryData, err := repo.WaterRequireIndustryGetByID(userData.IndustryID)
+	if err != nil {
+		return nil, err
+	}
+
+	result = FormulaWaterIndustry(industryData.Value, userData.IndustryAreaSize)
+
+	return result, nil
+}
+
+// ################### Plant ####################
+
+func WaterRequirePlantGetAll() (interface{}, error) {
+	rawData, err := repo.WaterRequirePlantGetAll()
+	if err != nil {
+		return nil, err
+	}
+	allProvince, err := repo.ProvinceGetAll()
+	if err != nil {
+		return nil, err
+	}
+
+	var mapProvince = map[int]string{}
+	for _, province := range allProvince {
+		mapProvince[province.ID] = province.ProvinceName
+	}
+	var result = []map[string]interface{}{}
+	for _, plant := range rawData {
+		pData := map[string]interface{}{}
+		err := json.Unmarshal([]byte(plant.PlantData), &pData)
 		if err != nil {
-			return nil, myfunction.MyErrFormat(err)
+			return nil, myfunc.MyErrFormat(err)
 		}
-		mydata = append(mydata, doc.Data())
+
+		var re = map[string]interface{}{
+			"id":            plant.ID,
+			"province_id":   plant.ProvinceID,
+			"province_name": mapProvince[plant.ProvinceID],
+			"data":          pData,
+		}
+		result = append(result, re)
 	}
-	return mydata, nil
+	return result, err
 }
 
-// ################### CAL ####################
+func WaterRequirePlantCal(userData mymodels.BodyWaterPlantCal) (interface{}, error) {
+	dPlantInProvince, err := repo.WaterRequirePlantGetByID(userData.ProvinceID)
+	if err != nil {
+		return nil, myfunc.MyErrFormat(err)
+	}
 
-func WaterAreaCal(userData mymodels.BodyWaterAreaCal) (interface{}, error) {
-	areaData, err := FirebaseGetByCollection(myvar.CollectionWaterArea)
-	if err != nil {
-		return nil, err
-	}
-	var areaValue float64
-	for _, v := range areaData {
-		var checkArea bool
-		for _, va := range v {
-			if va == userData.AreaName {
-				checkArea = true
-			}
-		}
-		if checkArea {
-			areaValue, err = strconv.ParseFloat(fmt.Sprint(v["ปริมาณ"]), 64)
-			if err != nil {
-				return nil, myfunction.MyErrFormat(err)
-			}
-			break
-		}
-	}
-	nDay, err := strconv.ParseFloat(userData.NumberDay, 64)
-	if err != nil {
-		return nil, myfunction.MyErrFormat(err)
-	}
-	nPer, err := strconv.ParseFloat(userData.NumberPerson, 64)
-	if err != nil {
-		return nil, myfunction.MyErrFormat(err)
-	}
-	result := areaValue * nDay * nPer
-	return result, nil
-}
-
-func WaterIndustryCal(userData mymodels.BodyWaterIndustryCal) (interface{}, error) {
-	industryData, err := FirebaseGetByCollection(myvar.CollectionWaterIndustry)
+	pData := map[string]interface{}{}
+	err = json.Unmarshal([]byte(dPlantInProvince.PlantData), &pData)
 	if err != nil {
 		return nil, err
 	}
 
-	var industryValue float64
-	for _, v := range industryData {
-		var checkFound bool
-		for _, va := range v {
-			if va == userData.IndustryType {
-				checkFound = true
-			}
-		}
-		if checkFound {
-			industryValue, err = strconv.ParseFloat(fmt.Sprint(v["ปริมาณ"]), 64)
-			if err != nil {
-				return nil, myfunction.MyErrFormat(err)
-			}
-			break
-		}
-	}
-	result := industryValue * userData.IndustryAreaSize
-
-	return result, nil
-}
-
-func WaterPlantCal(userData mymodels.BodyWaterPlantCal) (interface{}, error) {
-	plantData, err := FirebaseGetByCollection(myvar.CollectionWaterIndustry)
+	plantValue, err := strconv.ParseFloat(fmt.Sprint(pData[userData.PlantName]), 64)
 	if err != nil {
 		return nil, err
 	}
-	_ = plantData
-	// for _, v := range plantData {
-	// 	for _, va := range v {
 
-	// 	}
-	// }
-	result := 0
+	result := FormulaWaterPlant(plantValue, userData.FarmArea)
 	return result, nil
+}
+
+// ################### Person ####################
+func WaterRequirePersonGetAll() (result interface{}, err error) {
+	return repo.WaterRequirePersonGetAll()
 }

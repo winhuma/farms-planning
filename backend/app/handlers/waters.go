@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"plan-farm/app/services"
 	"plan-farm/myconfig/mymodels"
-	"plan-farm/myconfig/myvar"
+	"plan-farm/pkg/models"
+	"plan-farm/pkg/myfunc"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -14,21 +15,28 @@ func Hello(c *fiber.Ctx) error {
 }
 
 func WaterRequireDataGet(c *fiber.Ctx) error {
-	var collectionName string
-	Action := c.Params("action")
+	var result interface{}
+	var err error
+	Action := c.Query("type")
+
+	if !myfunc.CheckDupStringInList(Action, []string{"area", "plant", "industry", "person"}) {
+		return c.Status(400).JSON(models.ResponseFail("type not match."))
+	}
+
 	switch Action {
 	case "area":
-		collectionName = myvar.CollectionWaterArea
+		result, err = services.WaterRequireAreaGetAll()
 	case "plant":
-		collectionName = myvar.CollectionWaterPlant
+		result, err = services.WaterRequirePlantGetAll()
 	case "industry":
-		collectionName = myvar.CollectionWaterIndustry
+		result, err = services.WaterRequireIndustryGetAll()
+	case "person":
+		result, err = services.WaterRequirePersonGetAll()
 	}
-	mydata, err := services.FirebaseGetByCollection(collectionName)
 	if err != nil {
 		return err
 	}
-	return c.Status(200).JSON(map[string]interface{}{"message": "success", "data": mydata})
+	return c.Status(200).JSON(models.ResponseSuccess("success", result))
 }
 
 func WaterAreaCal(c *fiber.Ctx) error {
@@ -38,11 +46,11 @@ func WaterAreaCal(c *fiber.Ctx) error {
 	if err != nil {
 		return err
 	}
-	result, err := services.WaterAreaCal(mybody)
+	result, err := services.WaterRequireAreaCal(mybody)
 	if err != nil {
 		return err
 	}
-	return c.Status(200).JSON(map[string]interface{}{"message": "success", "data": result})
+	return c.Status(200).JSON(models.ResponseSuccess("success", result))
 }
 
 func WaterIndustryCal(c *fiber.Ctx) error {
@@ -56,19 +64,19 @@ func WaterIndustryCal(c *fiber.Ctx) error {
 	if err != nil {
 		return err
 	}
-	return c.Status(200).JSON(map[string]interface{}{"message": "success", "data": result})
+	return c.Status(200).JSON(models.ResponseSuccess("success", result))
 }
 
 func WaterPlantCal(c *fiber.Ctx) error {
-	var mybody = mymodels.BodyWaterIndustryCal{}
+	var mybody = mymodels.BodyWaterPlantCal{}
 	getbody := c.Body()
 	err := json.Unmarshal(getbody, &mybody)
 	if err != nil {
 		return err
 	}
-	result, err := services.WaterIndustryCal(mybody)
+	result, err := services.WaterRequirePlantCal(mybody)
 	if err != nil {
 		return err
 	}
-	return c.Status(200).JSON(map[string]interface{}{"message": "success", "data": result})
+	return c.Status(200).JSON(models.ResponseSuccess("success", result))
 }

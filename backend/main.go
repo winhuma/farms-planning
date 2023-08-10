@@ -10,7 +10,7 @@ import (
 
 func main() {
 	godotenv.Load(".env")
-	myconnect.FirebaseConnect()
+	myconnect.NewPostgres(os.Getenv("DB_CONNECT"))
 	app := myserver.New()
 	myserver.Route(app)
 	myserver.Run(app, os.Getenv("PORT"))
