@@ -1,4 +1,4 @@
 *.json
 *.env
 migrate_db.go
-frontend/vue/*
+frontend/myvue/*
