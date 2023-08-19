@@ -1,8 +1,5 @@
 *.json
 *.env
-migrate_db.go
-frontend/myvue/*
 frontend/node_modules
-frontend/.DS_Store
 frontend/README.md
-.DS_Store
+*.DS_Store
