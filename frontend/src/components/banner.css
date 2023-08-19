@@ -1,0 +1,14 @@
+.container-banner {
+    height: 910px;
+    line-height: 910px;
+    background-color: #002766;
+    color: #ffffff;
+    text-align: center;
+}
+
+.banner {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+}

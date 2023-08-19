@@ -1,0 +1,45 @@
+.navbar {
+  background-color: #ffffff;
+}
+
+img {
+  height: 50px;
+}
+
+.logo {
+  float: left;
+  width: 50%;
+  font-size: large;
+  font-weight: bold;
+  color: #096dd9;
+}
+
+.menu {
+  font-weight: bold;
+  color: #002766;
+}
+
+.app-space {
+  width: 100%;
+}
+
+.app-layout {
+  background-color: #ffffff;
+}
+
+.app-header {
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+}
+
+.app-footer {
+  margin-top: 1%;
+  background-color: #1890ff;
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+}

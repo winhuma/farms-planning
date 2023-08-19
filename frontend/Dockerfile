@@ -1,7 +1,10 @@
 # build stage
-FROM node:18-alpine3.17 as build-stage
+FROM node:lts-alpine as build-stage
 WORKDIR /app
-COPY dist .
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
 
 # production stage
 FROM nginx:stable-alpine as production-stage

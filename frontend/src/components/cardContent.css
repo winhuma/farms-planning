@@ -1,0 +1,9 @@
+.card-content {
+    height: 100%;
+    width: 100%;
+}
+
+.card-number {
+    font-weight: bold;
+    font-size: xx-large;
+}
