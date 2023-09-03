@@ -15,7 +15,17 @@ type appRoute struct {
 
 func Route(app *fiber.App) {
 
-	var myroute = []appRoute{
+	myroute := []appRoute{}
+	myroute = append(myroute, GetRouteWater()...)
+	myroute = append(myroute, GetRouteOther()...)
+	for _, handle := range myroute {
+		log.Info().Msgf("[%s] %s", handle.RouteMethod, handle.RoutePath)
+		app.Add(handle.RouteMethod, handle.RoutePath, handle.RouteFunc)
+	}
+}
+
+func GetRouteWater() []appRoute {
+	return []appRoute{
 		{
 			RoutePath:   "/",
 			RouteMethod: fiber.MethodGet,
@@ -41,14 +51,15 @@ func Route(app *fiber.App) {
 			RouteMethod: fiber.MethodPost,
 			RouteFunc:   handlers.WaterPlantCal,
 		},
-		{
-			RoutePath:   "/waters/calculate/person",
-			RouteMethod: fiber.MethodPost,
-			RouteFunc:   nil,
-		},
 	}
-	for _, handle := range myroute {
-		log.Info().Msgf("[%s] %s", handle.RouteMethod, handle.RoutePath)
-		app.Add(handle.RouteMethod, handle.RoutePath, handle.RouteFunc)
+}
+
+func GetRouteOther() []appRoute {
+	return []appRoute{
+		{
+			RoutePath:   "/province",
+			RouteMethod: fiber.MethodGet,
+			RouteFunc:   handlers.ProvinceGet,
+		},
 	}
 }

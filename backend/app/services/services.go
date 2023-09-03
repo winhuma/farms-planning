@@ -102,3 +102,8 @@ func WaterRequirePlantCal(userData mymodels.BodyWaterPlantCal) (interface{}, err
 func WaterRequirePersonGetAll() (result interface{}, err error) {
 	return repo.WaterRequirePersonGetAll()
 }
+
+// ################### OTHER ###################
+func ProvinceGetAll() (result interface{}, err error) {
+	return repo.ProvinceGetAll()
+}
