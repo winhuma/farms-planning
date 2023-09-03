@@ -8,12 +8,10 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-var DB *gorm.DB
-
 func NewPostgres(connectionString string) *gorm.DB {
 	var err error
 
-	DB, err = gorm.Open(postgres.New(postgres.Config{
+	DB, err := gorm.Open(postgres.New(postgres.Config{
 		DSN:                  connectionString,
 		PreferSimpleProtocol: true,
 	}), &gorm.Config{
@@ -23,9 +21,5 @@ func NewPostgres(connectionString string) *gorm.DB {
 	if err != nil {
 		log.Panic(err)
 	}
-	return DB
-}
-
-func DBInstance() *gorm.DB {
 	return DB
 }

@@ -103,6 +103,27 @@ func WaterRequirePersonGetAll() (result interface{}, err error) {
 	return repo.WaterRequirePersonGetAll()
 }
 
+// ################### ANIMAL ####################
+
+func WaterRequireAnimalGetAll() (result interface{}, err error) {
+	return repo.WaterRequireAnimalGetAll()
+}
+
+func WaterRequireAnimalCal(userData mymodels.BodyWaterAnimalCal) (result float64, failMSG string, err error) {
+	dAnimal, err := repo.WaterRequireAnimalGetByID(userData.AnimalID)
+	if err != nil {
+		return result, failMSG, myfunc.MyErrFormat(err)
+	}
+
+	if dAnimal.ID == 0 {
+		failMSG = "not found this animal id."
+		return result, failMSG, nil
+	}
+
+	result = FormulaWaterAnimal(dAnimal.Value, float64(userData.NumAnimal), float64(userData.NumDay))
+	return result, failMSG, nil
+}
+
 // ################### OTHER ###################
 func ProvinceGetAll() (result interface{}, err error) {
 	return repo.ProvinceGetAll()

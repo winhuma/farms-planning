@@ -51,6 +51,11 @@ func GetRouteWater() []appRoute {
 			RouteMethod: fiber.MethodPost,
 			RouteFunc:   handlers.WaterPlantCal,
 		},
+		{
+			RoutePath:   "/waters/calculate/animal",
+			RouteMethod: fiber.MethodPost,
+			RouteFunc:   handlers.WaterAnimalCal,
+		},
 	}
 }
 

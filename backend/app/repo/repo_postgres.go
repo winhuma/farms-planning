@@ -2,14 +2,14 @@ package repo
 
 import (
 	"plan-farm/myconfig/mymodels"
-	"plan-farm/pkg/myconnect"
+	"plan-farm/myconfig/myvar"
 	"plan-farm/pkg/myfunc"
 )
 
 // ######################## Area ########################
 
 func WaterRequireAreaGetAll() (result []mymodels.DBWaterRequiryArea, err error) {
-	mydb := myconnect.DBInstance()
+	mydb := myvar.AppObj.DB
 	err = mydb.Table(
 		mymodels.DBWaterRequiryArea.TableName(mymodels.DBWaterRequiryArea{})).
 		Scan(&result).Error
@@ -20,7 +20,7 @@ func WaterRequireAreaGetAll() (result []mymodels.DBWaterRequiryArea, err error) 
 }
 
 func WaterRequireAreaGetByID(areaID int) (result mymodels.DBWaterRequiryArea, err error) {
-	mydb := myconnect.DBInstance()
+	mydb := myvar.AppObj.DB
 	err = mydb.Table(
 		mymodels.DBWaterRequiryArea.TableName(mymodels.DBWaterRequiryArea{})).
 		Where("id=?", areaID).
@@ -34,7 +34,7 @@ func WaterRequireAreaGetByID(areaID int) (result mymodels.DBWaterRequiryArea, er
 // ######################## Industry ########################
 
 func WaterRequireIndustryGetAll() (result []mymodels.DBWaterRequiryIndustry, err error) {
-	mydb := myconnect.DBInstance()
+	mydb := myvar.AppObj.DB
 	err = mydb.Table(
 		mymodels.DBWaterRequiryIndustry.TableName(mymodels.DBWaterRequiryIndustry{})).
 		Scan(&result).Error
@@ -45,7 +45,7 @@ func WaterRequireIndustryGetAll() (result []mymodels.DBWaterRequiryIndustry, err
 }
 
 func WaterRequireIndustryGetByID(industryID int) (result mymodels.DBWaterRequiryIndustry, err error) {
-	mydb := myconnect.DBInstance()
+	mydb := myvar.AppObj.DB
 	err = mydb.Table(
 		mymodels.DBWaterRequiryIndustry.TableName(mymodels.DBWaterRequiryIndustry{})).
 		Where("id=?", industryID).
@@ -59,7 +59,7 @@ func WaterRequireIndustryGetByID(industryID int) (result mymodels.DBWaterRequiry
 // ######################## Plant ########################
 
 func WaterRequirePlantGetAll() (result []mymodels.DBWaterRequirePlant, err error) {
-	mydb := myconnect.DBInstance()
+	mydb := myvar.AppObj.DB
 	err = mydb.Table(
 		mymodels.DBWaterRequirePlant.TableName(mymodels.DBWaterRequirePlant{})).
 		Scan(&result).Error
@@ -70,7 +70,7 @@ func WaterRequirePlantGetAll() (result []mymodels.DBWaterRequirePlant, err error
 }
 
 func WaterRequirePlantGetByID(plantID int) (result mymodels.DBWaterRequirePlant, err error) {
-	mydb := myconnect.DBInstance()
+	mydb := myvar.AppObj.DB
 	err = mydb.Table(
 		mymodels.DBWaterRequirePlant.TableName(mymodels.DBWaterRequirePlant{})).
 		Where("id=?", plantID).
@@ -84,7 +84,7 @@ func WaterRequirePlantGetByID(plantID int) (result mymodels.DBWaterRequirePlant,
 // ######################## Person ########################
 
 func WaterRequirePersonGetAll() (result []mymodels.DBWaterRequirePerson, err error) {
-	mydb := myconnect.DBInstance()
+	mydb := myvar.AppObj.DB
 	err = mydb.Table(
 		mymodels.DBWaterRequirePerson.TableName(mymodels.DBWaterRequirePerson{})).
 		Scan(&result).Error
@@ -95,7 +95,7 @@ func WaterRequirePersonGetAll() (result []mymodels.DBWaterRequirePerson, err err
 }
 
 func WaterRequirePersonGetByID(wPersonID int) (result mymodels.DBWaterRequirePerson, err error) {
-	mydb := myconnect.DBInstance()
+	mydb := myvar.AppObj.DB
 	err = mydb.Table(
 		mymodels.DBWaterRequirePerson.TableName(mymodels.DBWaterRequirePerson{})).
 		Where("id=?", wPersonID).
@@ -106,9 +106,33 @@ func WaterRequirePersonGetByID(wPersonID int) (result mymodels.DBWaterRequirePer
 	return result, nil
 }
 
+// #################### ANIMAL ####################
+func WaterRequireAnimalGetAll() (result []mymodels.DBWaterRequireAnimal, err error) {
+	mydb := myvar.AppObj.DB
+	err = mydb.Table(
+		mymodels.DBWaterRequireAnimal.TableName(mymodels.DBWaterRequireAnimal{})).
+		Scan(&result).Error
+	if err != nil {
+		return result, myfunc.MyErrFormat(err)
+	}
+	return result, nil
+}
+
+func WaterRequireAnimalGetByID(animalID int) (result mymodels.DBWaterRequireAnimal, err error) {
+	mydb := myvar.AppObj.DB
+	err = mydb.Table(
+		mymodels.DBWaterRequireAnimal.TableName(mymodels.DBWaterRequireAnimal{})).
+		Where("id=?", animalID).
+		Scan(&result).Error
+	if err != nil {
+		return result, myfunc.MyErrFormat(err)
+	}
+	return result, nil
+}
+
 // #################### ETC ####################
 func ProvinceGetAll() (result []mymodels.DBProvince, err error) {
-	mydb := myconnect.DBInstance()
+	mydb := myvar.AppObj.DB
 	err = mydb.Table(
 		mymodels.DBProvince.TableName(mymodels.DBProvince{})).
 		Scan(&result).Error

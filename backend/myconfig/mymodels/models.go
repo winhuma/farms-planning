@@ -1,5 +1,10 @@
 package mymodels
 
+import (
+	"cloud.google.com/go/firestore"
+	"gorm.io/gorm"
+)
+
 type (
 	BodyWaterAreaCal struct {
 		AreaID       int     `json:"area_id"`
@@ -15,27 +20,10 @@ type (
 		ProvinceID int     `json:"province_id"`
 		FarmArea   float64 `json:"farm_area"`
 	}
-)
-
-type (
-	WaterRequiryArea struct {
-		Unit  string  `json:"unit"`
-		Value float64 `json:"value"`
-		Area  string  `json:"area"`
-	}
-	WaterRequiryIndustry struct {
-		Value        float64 `json:"value"`
-		Unit         string  `json:"unit"`
-		IndustryName string  `json:"industry_name"`
-	}
-	WaterRequirePerson struct {
-		Value float64 `json:"value"`
-		Unit  string  `json:"unit"`
-		Area  string  `json:"area"`
-	}
-	WaterRequirePlant struct {
-		ProvinceID int    `json:"province_id"`
-		PlantData  string `json:"data"`
+	BodyWaterAnimalCal struct {
+		AnimalID  int `json:"animal_id"`
+		NumAnimal int `json:"number_animal"`
+		NumDay    int `json:"number_day"`
 	}
 )
 
@@ -63,6 +51,12 @@ type (
 		ProvinceID int    `json:"province_id"`
 		PlantData  string `json:"data"`
 	}
+	DBWaterRequireAnimal struct {
+		ID         int     `json:"id"`
+		Unit       string  `json:"unit"`
+		Value      float64 `json:"value"`
+		AnimalName string  `json:"animal_name"`
+	}
 )
 
 type DBProvince struct {
@@ -86,6 +80,15 @@ func (DBWaterRequirePlant) TableName() string {
 	return "water_require_plant"
 }
 
+func (DBWaterRequireAnimal) TableName() string {
+	return "water_require_animal"
+}
+
 func (DBProvince) TableName() string {
 	return "province"
+}
+
+type AppObject struct {
+	DB       *gorm.DB
+	FIREBASE *firestore.Client
 }

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"plan-farm/app/services"
 	"plan-farm/myconfig/mymodels"
+	"plan-farm/myconfig/myvar"
 	"plan-farm/pkg/models"
 	"plan-farm/pkg/myfunc"
 
@@ -19,18 +20,20 @@ func WaterRequireDataGet(c *fiber.Ctx) error {
 	var err error
 	Action := c.Query("type")
 
-	if !myfunc.CheckDupStringInList(Action, []string{"area", "plant", "industry", "person"}) {
+	if !myfunc.CheckDupStringInList(Action, myvar.ParamWater) {
 		return c.Status(400).JSON(models.ResponseFail("type not match."))
 	}
 
 	switch Action {
-	case "area":
+	case myvar.AREA:
 		result, err = services.WaterRequireAreaGetAll()
-	case "plant":
+	case myvar.PLANT:
 		result, err = services.WaterRequirePlantGetAll()
-	case "industry":
+	case myvar.INDUSTRY:
 		result, err = services.WaterRequireIndustryGetAll()
-	case "person":
+	case myvar.ANIMAL:
+		result, err = services.WaterRequireAnimalGetAll()
+	case myvar.PERSON:
 		result, err = services.WaterRequirePersonGetAll()
 	}
 	if err != nil {
@@ -42,8 +45,7 @@ func WaterRequireDataGet(c *fiber.Ctx) error {
 func WaterAreaCal(c *fiber.Ctx) error {
 	var mybody = mymodels.BodyWaterAreaCal{}
 	getbody := c.Body()
-	err := json.Unmarshal(getbody, &mybody)
-	if err != nil {
+	if err := json.Unmarshal(getbody, &mybody); err != nil {
 		return err
 	}
 	result, err := services.WaterRequireAreaCal(mybody)
@@ -56,8 +58,7 @@ func WaterAreaCal(c *fiber.Ctx) error {
 func WaterIndustryCal(c *fiber.Ctx) error {
 	var mybody = mymodels.BodyWaterIndustryCal{}
 	getbody := c.Body()
-	err := json.Unmarshal(getbody, &mybody)
-	if err != nil {
+	if err := json.Unmarshal(getbody, &mybody); err != nil {
 		return err
 	}
 	result, err := services.WaterIndustryCal(mybody)
@@ -70,13 +71,27 @@ func WaterIndustryCal(c *fiber.Ctx) error {
 func WaterPlantCal(c *fiber.Ctx) error {
 	var mybody = mymodels.BodyWaterPlantCal{}
 	getbody := c.Body()
-	err := json.Unmarshal(getbody, &mybody)
-	if err != nil {
+	if err := json.Unmarshal(getbody, &mybody); err != nil {
 		return err
 	}
 	result, err := services.WaterRequirePlantCal(mybody)
 	if err != nil {
 		return err
+	}
+	return c.Status(200).JSON(models.ResponseSuccess("success", result))
+}
+
+func WaterAnimalCal(c *fiber.Ctx) error {
+	var mybody = mymodels.BodyWaterAnimalCal{}
+	if err := json.Unmarshal(c.Body(), &mybody); err != nil {
+		return err
+	}
+	result, failMSG, err := services.WaterRequireAnimalCal(mybody)
+	if err != nil {
+		return err
+	}
+	if failMSG != "" {
+		return c.Status(400).JSON(models.ResponseFail(failMSG))
 	}
 	return c.Status(200).JSON(models.ResponseSuccess("success", result))
 }
