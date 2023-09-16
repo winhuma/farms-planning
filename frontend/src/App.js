@@ -33,14 +33,13 @@ const App = () => {
           <Header className="app-header">
             <div className="navbar">
               <span className="logo">
-                <img src={logo} alt="logo" /> FARM PLAN
+                <img src={logo} alt="logo" /> FARM PLANNING
                 <Divider type="vertical" />
               </span>
 
               <Menu
                 className="menu"
                 mode="horizontal"
-                defaultSelectedKeys={["0"]}
                 items={menuItems}
               />
             </div>
@@ -51,7 +50,7 @@ const App = () => {
           </Content>
 
           <Footer className="app-footer">
-            <span>Copyright ©2023 Farm plan. All rights reserved.</span>
+            <span>Copyright ©2023 farm planning. all rights reserved.</span>
           </Footer>
         </Layout>
       </Space>

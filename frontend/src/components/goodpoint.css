@@ -1,9 +1,9 @@
 .container-goodpoint {
-    height: 910px;
-    line-height: 910px;
     background-color: #002766;
     color: #ffffff;
     text-align: center;
+    height: auto;
+    width: 100%;
 }
 
 .goodpoint {
@@ -12,4 +12,5 @@
     margin-left: auto;
     margin-right: auto;
     height: auto;
+    width: 100%;
 }
