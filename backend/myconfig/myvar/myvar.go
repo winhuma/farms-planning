@@ -3,7 +3,7 @@ package myvar
 import "plan-farm/myconfig/mymodels"
 
 const (
-	CollectionWaterArea     = "water_require_day"
+	CollectionWaterDay      = "water_require_day"
 	CollectionWaterAnimal   = "water_require_animal"
 	CollectionWaterPlant    = "water_require_plant"
 	CollectionWaterIndustry = "water_require_industry"
@@ -11,13 +11,13 @@ const (
 )
 
 const (
-	AREA     = "area"
+	DAY      = "day"
 	PLANT    = "plant"
 	INDUSTRY = "industry"
 	PERSON   = "person"
 	ANIMAL   = "animal"
 )
 
-var ParamWater = []string{AREA, PLANT, INDUSTRY, PERSON, ANIMAL}
+var ParamWater = []string{DAY, PLANT, INDUSTRY, PERSON, ANIMAL}
 
 var AppObj = mymodels.AppObject{}

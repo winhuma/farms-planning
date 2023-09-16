@@ -19,7 +19,7 @@ func WaterRequireAreaGetAll() (result []mymodels.DBWaterRequiryArea, err error) 
 	return result, nil
 }
 
-func WaterRequireAreaGetByID(areaID int) (result mymodels.DBWaterRequiryArea, err error) {
+func WaterRequireDayGetByID(areaID int) (result mymodels.DBWaterRequiryArea, err error) {
 	mydb := myvar.AppObj.DB
 	err = mydb.Table(
 		mymodels.DBWaterRequiryArea.TableName(mymodels.DBWaterRequiryArea{})).
@@ -74,6 +74,18 @@ func WaterRequirePlantGetByID(plantID int) (result mymodels.DBWaterRequirePlant,
 	err = mydb.Table(
 		mymodels.DBWaterRequirePlant.TableName(mymodels.DBWaterRequirePlant{})).
 		Where("id=?", plantID).
+		Scan(&result).Error
+	if err != nil {
+		return result, myfunc.MyErrFormat(err)
+	}
+	return result, nil
+}
+
+func WaterRequirePlantGetByProvinceID(provinceID int) (result mymodels.DBWaterRequirePlant, err error) {
+	mydb := myvar.AppObj.DB
+	err = mydb.Table(
+		mymodels.DBWaterRequirePlant.TableName(mymodels.DBWaterRequirePlant{})).
+		Where("province_id=?", provinceID).
 		Scan(&result).Error
 	if err != nil {
 		return result, myfunc.MyErrFormat(err)

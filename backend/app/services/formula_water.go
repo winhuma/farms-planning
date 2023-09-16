@@ -2,7 +2,7 @@ package services
 
 import "fmt"
 
-func FormulaWaterArea(areaValue float64, numberDay float64, numberPerson float64) float64 {
+func FormulaWaterDay(areaValue float64, numberDay float64, numberPerson float64) float64 {
 	return areaValue * numberDay * numberPerson
 }
 

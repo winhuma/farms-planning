@@ -25,8 +25,8 @@ func WaterRequireDataGet(c *fiber.Ctx) error {
 	}
 
 	switch Action {
-	case myvar.AREA:
-		result, err = services.WaterRequireAreaGetAll()
+	case myvar.DAY:
+		result, err = services.WaterRequireDayGetAll()
 	case myvar.PLANT:
 		result, err = services.WaterRequirePlantGetAll()
 	case myvar.INDUSTRY:
@@ -42,13 +42,13 @@ func WaterRequireDataGet(c *fiber.Ctx) error {
 	return c.Status(200).JSON(models.ResponseSuccess("success", result))
 }
 
-func WaterAreaCal(c *fiber.Ctx) error {
+func WaterDayCal(c *fiber.Ctx) error {
 	var mybody = mymodels.BodyWaterAreaCal{}
 	getbody := c.Body()
 	if err := json.Unmarshal(getbody, &mybody); err != nil {
 		return err
 	}
-	result, err := services.WaterRequireAreaCal(mybody)
+	result, err := services.WaterRequireDayCal(mybody)
 	if err != nil {
 		return err
 	}

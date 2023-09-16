@@ -37,9 +37,9 @@ func GetRouteWater() []appRoute {
 			RouteFunc:   handlers.WaterRequireDataGet,
 		},
 		{
-			RoutePath:   "/waters/calculate/area",
+			RoutePath:   "/waters/calculate/day",
 			RouteMethod: fiber.MethodPost,
-			RouteFunc:   handlers.WaterAreaCal,
+			RouteFunc:   handlers.WaterDayCal,
 		},
 		{
 			RoutePath:   "/waters/calculate/industry",

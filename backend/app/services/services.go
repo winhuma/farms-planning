@@ -9,19 +9,19 @@ import (
 	"strconv"
 )
 
-// ################### Area ####################
+// ################### Day ####################
 
-func WaterRequireAreaGetAll() (result interface{}, err error) {
+func WaterRequireDayGetAll() (result interface{}, err error) {
 	return repo.WaterRequireAreaGetAll()
 }
 
-func WaterRequireAreaCal(userData mymodels.BodyWaterAreaCal) (result interface{}, err error) {
-	areaData, err := repo.WaterRequireAreaGetByID(userData.AreaID)
+func WaterRequireDayCal(userData mymodels.BodyWaterAreaCal) (result interface{}, err error) {
+	areaData, err := repo.WaterRequireDayGetByID(userData.AreaID)
 	if err != nil {
 		return nil, err
 	}
 
-	result = FormulaWaterArea(areaData.Value, float64(userData.NumberDay), float64(userData.NumberPerson))
+	result = FormulaWaterDay(areaData.Value, float64(userData.NumberDay), float64(userData.NumberPerson))
 	return result, nil
 }
 
@@ -78,13 +78,13 @@ func WaterRequirePlantGetAll() (interface{}, error) {
 }
 
 func WaterRequirePlantCal(userData mymodels.BodyWaterPlantCal) (interface{}, error) {
-	dPlantInProvince, err := repo.WaterRequirePlantGetByID(userData.ProvinceID)
+	dPlantByProvince, err := repo.WaterRequirePlantGetByProvinceID(userData.ProvinceID)
 	if err != nil {
 		return nil, myfunc.MyErrFormat(err)
 	}
 
 	pData := map[string]interface{}{}
-	err = json.Unmarshal([]byte(dPlantInProvince.PlantData), &pData)
+	err = json.Unmarshal([]byte(dPlantByProvince.PlantData), &pData)
 	if err != nil {
 		return nil, err
 	}

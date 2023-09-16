@@ -28,7 +28,7 @@ func FirebaseGetByCollection(CollectionName string) ([]map[string]interface{}, e
 }
 
 func FBGetWaterRequireDay() ([]map[string]interface{}, error) {
-	areaData, err := FirebaseGetByCollection(myvar.CollectionWaterArea)
+	areaData, err := FirebaseGetByCollection(myvar.CollectionWaterDay)
 	if err != nil {
 		return nil, err
 	}
