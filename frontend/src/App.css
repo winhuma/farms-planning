@@ -17,6 +17,7 @@ img {
 .menu {
   font-weight: bold;
   color: #002766;
+  float: right;
 }
 
 .app-space {
@@ -33,6 +34,10 @@ img {
   top: 0;
   z-index: 1;
   width: 100%;
+}
+
+.app-content {
+  background-color: transparent;
 }
 
 .app-footer {

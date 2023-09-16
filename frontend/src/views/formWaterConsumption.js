@@ -5,7 +5,7 @@ import Topic from "../components/topic";
 import { Form, Input, Radio, InputNumber, Button, Card, Divider } from "antd";
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
-const postUrlCalculate = apiEndpoint + "water/area/calculate";
+const postUrlCalculate = apiEndpoint + "waters/calculate/day";
 const tabList = [
   {
     key: "water-1",
@@ -47,11 +47,11 @@ const FormWaterConsumption = () => {
     await axios
       .post(postUrlCalculate, {
         area_name: area,
-        number_person: numPeople,
-        number_day: waterDemand,
+        number_person: Number(numPeople),
+        number_day: Number(waterDemand),
       })
       .then((response) => {
-        setResult(response.data.data.result);
+        setResult(response.data.result);
       });
   };
 
