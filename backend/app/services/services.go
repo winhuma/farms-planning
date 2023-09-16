@@ -21,7 +21,7 @@ func WaterRequireAreaCal(userData mymodels.BodyWaterAreaCal) (result interface{}
 		return nil, err
 	}
 
-	result = FormulaWaterArea(areaData.Value, userData.NumberDay, userData.NumberPerson)
+	result = FormulaWaterArea(areaData.Value, float64(userData.NumberDay), float64(userData.NumberPerson))
 	return result, nil
 }
 

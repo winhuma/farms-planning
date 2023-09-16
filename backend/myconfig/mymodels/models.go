@@ -7,9 +7,9 @@ import (
 
 type (
 	BodyWaterAreaCal struct {
-		AreaID       int     `json:"area_id"`
-		NumberPerson float64 `json:"number_person"`
-		NumberDay    float64 `json:"number_day"`
+		AreaID       int `json:"area_id"`
+		NumberPerson int `json:"number_person"`
+		NumberDay    int `json:"number_day"`
 	}
 	BodyWaterIndustryCal struct {
 		IndustryID       int     `json:"industry_id"`
