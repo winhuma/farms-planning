@@ -2,20 +2,61 @@ import "./formWaterConsumption.css";
 import React, { useState } from "react";
 import axios from "axios";
 import Topic from "../components/topic";
-import { Form, Input, Radio, InputNumber, Button, Card, Divider } from "antd";
+import {
+  Form,
+  Input,
+  Radio,
+  InputNumber,
+  Button,
+  Card,
+  Divider,
+  Select,
+} from "antd";
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
 const postCalWaterDay = apiEndpoint + "waters/calculate/day";
+const getProvince = apiEndpoint + "province";
 
 const FormWaterConsumption = () => {
   const [area, setArea] = useState(null);
   const [numPeople, setNumPeople] = useState(null);
   const [waterDemand, setWaterDemand] = useState(null);
   const [result, setResult] = useState(null);
-  const [activeTabKey, setActiveTabKey] = useState("water1");
+  const [activeTabKey, setActiveTabKey] = useState("day");
+  const [selectedProvince, setSelectedProvince] = useState(null);
+  const [searchProvince, setSearchProvince] = useState(null);
+  const [province, setProvince] = useState(null);
 
-  const onTabChange = (key) => {
+  const onChangeProvince = (value) => {
+    console.log("=selectedProvince=", selectedProvince);
+    setSelectedProvince(value);
+  };
+
+  const onSearchProvince = (value) => {
+    console.log("-searchProvince-", searchProvince);
+    setSearchProvince(value);
+  };
+
+  const filterOptionProvince = (input, option) =>
+    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+
+  const onTabChange = async (key) => {
     setActiveTabKey(key);
+    if (key === "agriculture") {
+      await axios.get(getProvince).then((response) => {
+        let resp = [];
+        for (const res of response.data.result) {
+          resp = [
+            ...resp,
+            {
+              value: res["id"],
+              label: res["province_name"],
+            },
+          ];
+        }
+        setProvince(resp);
+      });
+    }
   };
 
   const onChangeRadioArea = (e) => {
@@ -53,19 +94,19 @@ const FormWaterConsumption = () => {
 
   const tabList = [
     {
-      key: "water1",
+      key: "day",
       tab: "อุปโภค - บริโภค",
     },
     {
-      key: "water2",
+      key: "agriculture",
       tab: "เพาะปลูก",
     },
     {
-      key: "water3",
+      key: "livestock",
       tab: "ปศุสัตว์",
     },
     {
-      key: "water4",
+      key: "industry",
       tab: "อุตสาหกรรม",
     },
   ];
@@ -90,7 +131,11 @@ const FormWaterConsumption = () => {
       </Form.Item>
 
       <Form.Item label="จำนวนผู้ใช้น้ำ" onChange={onChangeNumPeople}>
-        <InputNumber className="water-consumption-input-number" value={numPeople} /> คน
+        <InputNumber
+          className="water-consumption-input-number"
+          value={numPeople}
+        />{" "}
+        คน
       </Form.Item>
 
       <Form.Item label="ความต้องการน้ำ" onChange={onChangeWaterDemand}>
@@ -100,23 +145,55 @@ const FormWaterConsumption = () => {
     </Form>
   );
 
+  // const province = [
+  //   {
+  //     value: "1",
+  //     label: "กรุงเทพฯ",
+  //   },
+  //   {
+  //     value: "2",
+  //     label: "สมุทรสาคร",
+  //   },
+  //   {
+  //     value: "3",
+  //     label: "นนทบุรี",
+  //   },
+  // ];
+
   const formAgr = (
-    <p> Agricultural </p>
-  )
+    <Form
+      className="water-consumption-form"
+      labelCol={{ span: 3 }}
+      wrapperCol={{ span: 24 }}
+      layout="horizontal"
+      labelAlign={"left"}
+    >
+      <Select
+        className="water-consumption-dropdown"
+        showSearch
+        placeholder="จังหวัด"
+        optionFilterProp="children"
+        // value={}
+        onChange={onChangeProvince}
+        onSearch={onSearchProvince}
+        filterOption={filterOptionProvince}
+        options={province}
+      />
 
-  const formLiv = (
-    <p> Livestock </p>
-  )
+      <br />
+      <br />
+    </Form>
+  );
 
-  const formInd = (
-    <p> Industry </p>
-  )
+  const formLiv = <p> Livestock </p>;
+
+  const formInd = <p> Industry </p>;
 
   const contentList = {
-    water1: formDay,
-    water2: formAgr,
-    water3: formLiv,
-    water4: formInd,
+    day: formDay,
+    agriculture: formAgr,
+    livestock: formLiv,
+    industry: formInd,
   };
 
   //======================================================================
@@ -139,7 +216,10 @@ const FormWaterConsumption = () => {
 
         <Divider />
 
-        <Form.Item label="ความต้องการน้ำทั้งหมด" className="water-consumption-form-result">
+        <Form.Item
+          label="ความต้องการน้ำทั้งหมด"
+          className="water-consumption-form-result"
+        >
           <Input
             className="water-consumption-input-result"
             disabled
