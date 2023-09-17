@@ -7,7 +7,7 @@
 }
 
 .water-consumption-form {
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .water-consumption-input-text {
@@ -16,6 +16,11 @@
 
 .water-consumption-input-number {
     width: 20%;
+}
+
+
+.water-consumption-form-result {
+    font-weight: bold;
 }
 
 .water-consumption-input-result {
