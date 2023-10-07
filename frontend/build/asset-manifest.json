@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.fca99e0c.css",
+    "main.js": "/static/js/main.b0d01530.js",
+    "static/media/inspiration.png": "/static/media/inspiration.e746dc0a7a451bf46d0e.png",
+    "static/media/goodpoint.png": "/static/media/goodpoint.a4e5a4f87de989cf9299.png",
+    "static/media/logo.png": "/static/media/logo.eff58514995d8611d13a.png",
+    "index.html": "/index.html",
+    "main.fca99e0c.css.map": "/static/css/main.fca99e0c.css.map",
+    "main.b0d01530.js.map": "/static/js/main.b0d01530.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fca99e0c.css",
+    "static/js/main.b0d01530.js"
+  ]
+}

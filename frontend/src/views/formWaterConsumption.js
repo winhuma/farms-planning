@@ -14,8 +14,9 @@ import {
 } from "antd";
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
-const postCalWaterDay = apiEndpoint + "waters/calculate/day";
-const getProvince = apiEndpoint + "province";
+const postCalWaterDay = apiEndpoint + "/waters/calculate/day";
+const getProvince = apiEndpoint + "/province";
+const getPlant = apiEndpoint + "/waters?type=plant";
 
 const FormWaterConsumption = () => {
   const [area, setArea] = useState(null);
@@ -26,35 +27,67 @@ const FormWaterConsumption = () => {
   const [selectedProvince, setSelectedProvince] = useState(null);
   const [searchProvince, setSearchProvince] = useState(null);
   const [province, setProvince] = useState(null);
+  const [selectedPlant, setSelectedPlant] = useState(null);
+  const [searchPlant, setSearchPlant] = useState(null);
+  const [plant, setPlant] = useState(null);
+  const [resPlant, setResPlant] = useState(null);
 
-  const onChangeProvince = (value) => {
-    console.log("=selectedProvince=", selectedProvince);
-    setSelectedProvince(value);
+  console.log("plant", plant);
+
+  const onChangeProvince = (provId) => {
+    setSelectedProvince(provId);
+    for (let prov of resPlant) {
+      if (prov["province_id"] === provId) {
+        let plantList = [];
+        for (var [key, value] of Object.entries(prov["data"])) {
+          plantList = [
+            ...plantList,
+            {
+              value: value,
+              label: key,
+            },
+          ];
+        }
+        setPlant(plantList);
+        break;
+      }
+    }
   };
 
   const onSearchProvince = (value) => {
-    console.log("-searchProvince-", searchProvince);
     setSearchProvince(value);
   };
 
   const filterOptionProvince = (input, option) =>
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
+  const onChangePlant = (planId) => {
+    setSelectedPlant(planId);
+  };
+
+  const onSearchPlant = (value) => {
+    setSearchPlant(value);
+  };
+
+  const filterOptionPlant = (input, option) =>
+    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+
   const onTabChange = async (key) => {
     setActiveTabKey(key);
     if (key === "agriculture") {
-      await axios.get(getProvince).then((response) => {
+      await axios.get(getPlant).then((response) => {
         let resp = [];
-        for (const res of response.data.result) {
+        for (let prov of response.data.result) {
           resp = [
             ...resp,
             {
-              value: res["id"],
-              label: res["province_name"],
+              value: prov["province_id"],
+              label: prov["province_name"],
             },
           ];
         }
         setProvince(resp);
+        setResPlant(response.data.result);
       });
     }
   };
@@ -145,21 +178,6 @@ const FormWaterConsumption = () => {
     </Form>
   );
 
-  // const province = [
-  //   {
-  //     value: "1",
-  //     label: "กรุงเทพฯ",
-  //   },
-  //   {
-  //     value: "2",
-  //     label: "สมุทรสาคร",
-  //   },
-  //   {
-  //     value: "3",
-  //     label: "นนทบุรี",
-  //   },
-  // ];
-
   const formAgr = (
     <Form
       className="water-consumption-form"
@@ -173,11 +191,23 @@ const FormWaterConsumption = () => {
         showSearch
         placeholder="จังหวัด"
         optionFilterProp="children"
-        // value={}
+        value={selectedProvince}
         onChange={onChangeProvince}
         onSearch={onSearchProvince}
         filterOption={filterOptionProvince}
         options={province}
+      />
+
+      <Select
+        className="water-agriculture-dropdown"
+        showSearch
+        placeholder="พันธุ์พืช"
+        optionFilterProp="children"
+        value={selectedPlant}
+        onChange={onChangePlant}
+        onSearch={onSearchPlant}
+        filterOption={filterOptionPlant}
+        options={plant}
       />
 
       <br />
