@@ -2,21 +2,33 @@ package services
 
 import (
 	"encoding/json"
+	"farms-planning/app/repo"
+	"farms-planning/myconfig/models"
+	"farms-planning/pkg/myfunc"
 	"fmt"
-	"plan-farm/app/repo"
-	"plan-farm/myconfig/mymodels"
-	"plan-farm/pkg/myfunc"
 	"strconv"
 )
 
-// ################### Day ####################
-
-func WaterRequireDayGetAll() (result interface{}, err error) {
-	return repo.WaterRequireAreaGetAll()
+type serviceWaterRequire struct {
+	r   repo.Repo
+	rwr repo.RepoWaterRequire
 }
 
-func WaterRequireDayCal(userData mymodels.BodyWaterAreaCal) (result interface{}, err error) {
-	areaData, err := repo.WaterRequireDayGetByID(userData.AreaID)
+func NewServiceWaterRequire(r repo.Repo, rwr repo.RepoWaterRequire) ServiceWaterRequire {
+	return &serviceWaterRequire{
+		r:   r,
+		rwr: rwr,
+	}
+}
+
+// ################### Day ####################
+
+func (s *serviceWaterRequire) WaterRequireDayGetAll() (result interface{}, err error) {
+	return s.rwr.WaterRequireAreaGetAll()
+}
+
+func (s *serviceWaterRequire) WaterRequireDayCal(userData models.BodyWaterAreaCal) (result interface{}, err error) {
+	areaData, err := s.rwr.WaterRequireDayGetByID(userData.AreaID)
 	if err != nil {
 		return nil, err
 	}
@@ -27,12 +39,12 @@ func WaterRequireDayCal(userData mymodels.BodyWaterAreaCal) (result interface{},
 
 // ################### Industry ####################
 
-func WaterRequireIndustryGetAll() (result interface{}, err error) {
-	return repo.WaterRequireIndustryGetAll()
+func (s *serviceWaterRequire) WaterRequireIndustryGetAll() (result interface{}, err error) {
+	return s.rwr.WaterRequireIndustryGetAll()
 }
 
-func WaterIndustryCal(userData mymodels.BodyWaterIndustryCal) (result interface{}, err error) {
-	industryData, err := repo.WaterRequireIndustryGetByID(userData.IndustryID)
+func (s *serviceWaterRequire) WaterRequireIndustryCal(userData models.BodyWaterIndustryCal) (result interface{}, err error) {
+	industryData, err := s.rwr.WaterRequireIndustryGetByID(userData.IndustryID)
 	if err != nil {
 		return nil, err
 	}
@@ -44,12 +56,12 @@ func WaterIndustryCal(userData mymodels.BodyWaterIndustryCal) (result interface{
 
 // ################### Plant ####################
 
-func WaterRequirePlantGetAll() (interface{}, error) {
-	rawData, err := repo.WaterRequirePlantGetAll()
+func (s *serviceWaterRequire) WaterRequirePlantGetAll() (interface{}, error) {
+	rawData, err := s.rwr.WaterRequirePlantGetAll()
 	if err != nil {
 		return nil, err
 	}
-	allProvince, err := repo.ProvinceGetAll()
+	allProvince, err := s.r.ProvinceGetAll()
 	if err != nil {
 		return nil, err
 	}
@@ -77,8 +89,8 @@ func WaterRequirePlantGetAll() (interface{}, error) {
 	return result, err
 }
 
-func WaterRequirePlantCal(userData mymodels.BodyWaterPlantCal) (interface{}, error) {
-	dPlantByProvince, err := repo.WaterRequirePlantGetByProvinceID(userData.ProvinceID)
+func (s *serviceWaterRequire) WaterRequirePlantCal(userData models.BodyWaterPlantCal) (interface{}, error) {
+	dPlantByProvince, err := s.rwr.WaterRequirePlantGetByProvinceID(userData.ProvinceID)
 	if err != nil {
 		return nil, myfunc.MyErrFormat(err)
 	}
@@ -98,19 +110,14 @@ func WaterRequirePlantCal(userData mymodels.BodyWaterPlantCal) (interface{}, err
 	return result, nil
 }
 
-// ################### Person ####################
-func WaterRequirePersonGetAll() (result interface{}, err error) {
-	return repo.WaterRequirePersonGetAll()
-}
-
 // ################### ANIMAL ####################
 
-func WaterRequireAnimalGetAll() (result interface{}, err error) {
-	return repo.WaterRequireAnimalGetAll()
+func (s *serviceWaterRequire) WaterRequireAnimalGetAll() (result interface{}, err error) {
+	return s.rwr.WaterRequireAnimalGetAll()
 }
 
-func WaterRequireAnimalCal(userData mymodels.BodyWaterAnimalCal) (result float64, failMSG string, err error) {
-	dAnimal, err := repo.WaterRequireAnimalGetByID(userData.AnimalID)
+func (s *serviceWaterRequire) WaterRequireAnimalCal(userData models.BodyWaterAnimalCal) (result float64, failMSG string, err error) {
+	dAnimal, err := s.rwr.WaterRequireAnimalGetByID(userData.AnimalID)
 	if err != nil {
 		return result, failMSG, myfunc.MyErrFormat(err)
 	}
@@ -122,9 +129,4 @@ func WaterRequireAnimalCal(userData mymodels.BodyWaterAnimalCal) (result float64
 
 	result = FormulaWaterAnimal(dAnimal.Value, float64(userData.NumAnimal), float64(userData.NumDay))
 	return result, failMSG, nil
-}
-
-// ################### OTHER ###################
-func ProvinceGetAll() (result interface{}, err error) {
-	return repo.ProvinceGetAll()
 }

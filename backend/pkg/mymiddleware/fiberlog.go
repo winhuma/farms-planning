@@ -1,6 +1,7 @@
-package myserver
+package mymiddleware
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -12,7 +13,7 @@ import (
 )
 
 type logFields struct {
-	TraceID    string
+	RequestID  string
 	Method     string
 	RemoteIP   string
 	Host       string
@@ -23,17 +24,17 @@ type logFields struct {
 
 func (lf *logFields) MarshalZerologObject(e *zerolog.Event) {
 	e.
-		Str("traceID", lf.TraceID).
-		Str("method", lf.Method).
-		Str("remote_ip", lf.RemoteIP).
-		Str("host", lf.Host).
-		Str("path", lf.Path).
-		Int("status_code", lf.StatusCode).
+		Str("request_id", lf.RequestID).
+		// Str("method", lf.Method).
+		// Str("remote_ip", lf.RemoteIP).
+		// Str("host", lf.Host).
+		Str("path", fmt.Sprintf("[%s][%s] %s %d", lf.RemoteIP, lf.Method, lf.Path, lf.StatusCode)).
+		// Int("status_code", lf.StatusCode).
 		Float64("latency", lf.Latency)
 }
 
-//Middleware requestid + logger + recover for request traceability
-func ZMiddleware() func(*fiber.Ctx) error {
+// Middleware requestid + logger + recover for request traceability
+func FiberLog() func(*fiber.Ctx) error {
 	return func(c *fiber.Ctx) error {
 
 		start := time.Now()
@@ -43,11 +44,10 @@ func ZMiddleware() func(*fiber.Ctx) error {
 		rid := strings.ReplaceAll(uuid.New().String(), "-", "")
 
 		fields := &logFields{
-			TraceID:  rid,
-			RemoteIP: c.IP(),
-			Method:   c.Method(),
-			Host:     c.Hostname(),
-			Path:     c.Path(),
+			RequestID: rid,
+			RemoteIP:  c.IP(),
+			Method:    c.Method(),
+			Path:      c.Path(),
 		}
 
 		defer func() {

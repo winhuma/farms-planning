@@ -1,21 +1,21 @@
 package myserver
 
 import (
-	"plan-farm/myconfig/mymodels"
+	"farms-planning/myconfig/models"
+	"farms-planning/pkg/myfunc"
 
 	"gorm.io/gorm"
 )
 
 func MiGrateAllDB(db *gorm.DB) {
 	err := db.AutoMigrate(
-		&mymodels.DBProvince{},
-		&mymodels.DBWaterRequiryArea{},
-		&mymodels.DBWaterRequirePerson{},
-		&mymodels.DBWaterRequirePlant{},
-		&mymodels.DBWaterRequiryIndustry{},
-		&mymodels.DBWaterRequireAnimal{},
+		&models.DBProvince{},
+		&models.DBWaterRequiryArea{},
+		&models.DBWaterRequirePlant{},
+		&models.DBWaterRequiryIndustry{},
+		&models.DBWaterRequireAnimal{},
 	)
 	if err != nil {
-		panic("MiGrateAllDB : " + err.Error())
+		panic(myfunc.MyErrFormat(err).Error())
 	}
 }

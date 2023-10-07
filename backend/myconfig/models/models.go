@@ -1,9 +1,4 @@
-package mymodels
-
-import (
-	"cloud.google.com/go/firestore"
-	"gorm.io/gorm"
-)
+package models
 
 type (
 	BodyWaterAreaCal struct {
@@ -86,9 +81,4 @@ func (DBWaterRequireAnimal) TableName() string {
 
 func (DBProvince) TableName() string {
 	return "province"
-}
-
-type AppObject struct {
-	DB       *gorm.DB
-	FIREBASE *firestore.Client
 }

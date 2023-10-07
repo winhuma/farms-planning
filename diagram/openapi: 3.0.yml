@@ -1,0 +1,353 @@
+openapi: 3.0.3
+info:
+  version: 0.0.1
+  title: Swagger Truckstore - OpenAPI 3.0
+  description: |-
+    This is a sample Truck Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+    termsOfService: http://swagger.io/terms
+  
+tags:
+  - name: truck
+  - name: recycle
+paths:
+  /truck/profile:
+    get:
+      tags:
+        - truck
+      description: Get data profile of truck
+      requestBody:
+        description: Get data profile of truck
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Truck'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Truck'
+        '400':
+          description: Invalid ID truck
+    post:
+      tags:
+        - truck
+      description: Create profile truck
+      requestBody:
+        description: Create a new Truck
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Truck'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Truck'
+    put:
+      tags:
+        - truck
+      description: Update profile truck
+      requestBody:
+        description: Update a new Truck
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Truck'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Truck'
+  /truck/work:
+    get:
+      tags:
+        - truck
+      summary: Finds Trucks by status
+      description: Multiple status values can be provided with comma separated strings
+      operationId: findTrucksByStatus
+      parameters:
+        - name: status
+          in: query
+          description: Status values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: available
+            enum:
+              - available
+              - pending
+              - sold
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Truck'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Truck'
+        '400':
+          description: Invalid status value
+      security:
+        - Truckstore_auth:
+            - write:Trucks
+            - read:Trucks
+    post:
+      tags:
+        - truck
+      summary: Finds Trucks by status
+      description: Multiple status values can be provided with comma separated strings
+      operationId: findTrucksByStatus
+      parameters:
+        - name: status
+          in: query
+          description: Status values that need to be considered for filter
+          required: false
+          explode: true
+          schema:
+            type: string
+            default: available
+            enum:
+              - available
+              - pending
+              - sold
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Truck'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Truck'
+        '400':
+          description: Invalid status value
+      security:
+        - Truckstore_auth:
+            - write:Trucks
+            - read:Trucks
+  /truck/work/checkpoint:
+    get:
+      tags:
+        - Truck
+      summary: Finds Trucks by tags
+      description: Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+      operationId: findTrucksByTags
+      parameters:
+        - name: tags
+          in: query
+          description: Tags to filter by
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Truck'          
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Truck'
+        '400':
+          description: Invalid tag value
+      security:
+        - Truckstore_auth:
+            - write:Trucks
+            - read:Trucks
+  /truck/work/close:
+    get:
+      tags:
+        - Truck
+      summary: Find Truck by ID
+      description: Returns a single Truck
+      operationId: getTruckById
+      parameters:
+        - name: TruckId
+          in: path
+          description: ID of Truck to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Truck'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Truck'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Truck not found
+      security:
+        - api_key: []
+        - Truckstore_auth:
+            - write:Trucks
+            - read:Trucks
+    post:
+      tags:
+        - Truck
+      summary: Updates a Truck in the store with form data
+      description: ''
+      operationId: updateTruckWithForm
+      parameters:
+        - name: TruckId
+          in: path
+          description: ID of Truck that needs to be updated
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: name
+          in: query
+          description: Name of Truck that needs to be updated
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Status of Truck that needs to be updated
+          schema:
+            type: string
+      responses:
+        '405':
+          description: Invalid input
+      security:
+        - Truckstore_auth:
+            - write:Trucks
+            - read:Trucks
+    delete:
+      tags:
+        - Truck
+      summary: Deletes a Truck
+      description: delete a Truck
+      operationId: deleteTruck
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: TruckId
+          in: path
+          description: Truck id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid Truck value
+      security:
+        - Truckstore_auth:
+            - write:Trucks
+            - read:Trucks
+  /truck/promotion:
+    post:
+      tags:
+        - Truck
+      summary: uploads an image
+      description: ''
+      operationId: uploadFile
+      parameters:
+        - name: TruckId
+          in: path
+          description: ID of Truck to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: additionalMetadata
+          in: query
+          description: Additional Metadata
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      security:
+        - Truckstore_auth:
+            - write:Trucks
+            - read:Trucks
+  /truck/promotion/available:
+    post:
+      tags:
+        - Truck
+      summary: uploads an image
+      description: ''
+      operationId: uploadFile
+      parameters:
+        - name: TruckId
+          in: path
+          description: ID of Truck to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: additionalMetadata
+          in: query
+          description: Additional Metadata
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      security:
+        - Truckstore_auth:
+            - write:Trucks
+            - read:Trucks

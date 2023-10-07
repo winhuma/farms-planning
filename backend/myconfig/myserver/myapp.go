@@ -1,6 +1,7 @@
 package myserver
 
 import (
+	"farms-planning/pkg/mymiddleware"
 	"fmt"
 	"os"
 	"os/signal"
@@ -14,7 +15,7 @@ func New() *fiber.App {
 
 	app := fiber.New()
 	app.Use(cors.New())
-	app.Use(ZMiddleware())
+	app.Use(mymiddleware.FiberLog())
 	return app
 }
 
@@ -25,9 +26,9 @@ func Run(app *fiber.App, port string) {
 	serverShutdown := make(chan struct{})
 
 	go func() {
-		_ = <-c
+		<-c
 		log.Info().Msg("...Gracefully shutting down...")
-		_ = app.Shutdown()
+		app.Shutdown()
 		serverShutdown <- struct{}{}
 	}()
 
