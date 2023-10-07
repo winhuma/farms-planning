@@ -1,5 +1,5 @@
 package services
 
-func FormulaPool() {
-	// ให้ผู้ใช้งานกำหนดขนาด "พท.ผิวที่ระดับเก็บกัก; RA"จากร้อยละของพื้นที่แปลงเกษตร เช่น 30%*พื้นที่แปลงเกษตร
+func FormulaSurfaceAreaAtReservoirLevel(areaPool float64, percentArea float64) float64 {
+	return areaPool * percentArea
 }
