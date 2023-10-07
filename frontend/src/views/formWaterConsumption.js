@@ -14,15 +14,16 @@ import {
 } from "antd";
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
-const postCalWaterDay = apiEndpoint + "/waters/calculate/day";
-const getProvince = apiEndpoint + "/province";
 const getPlant = apiEndpoint + "/waters?type=plant";
+const postCalWaterDay = apiEndpoint + "/waters/calculate/day";
+const postCalWaterAgri = apiEndpoint + "/waters/calculate/plant";
 
 const FormWaterConsumption = () => {
   const [area, setArea] = useState(null);
   const [numPeople, setNumPeople] = useState(null);
   const [waterDemand, setWaterDemand] = useState(null);
-  const [result, setResult] = useState(null);
+  const [resultDay, setResultDay] = useState(null);
+  const [resultAgri, setResultAgri] = useState(null);
   const [activeTabKey, setActiveTabKey] = useState("day");
   const [selectedProvince, setSelectedProvince] = useState(null);
   const [searchProvince, setSearchProvince] = useState(null);
@@ -31,8 +32,8 @@ const FormWaterConsumption = () => {
   const [searchPlant, setSearchPlant] = useState(null);
   const [plant, setPlant] = useState(null);
   const [resPlant, setResPlant] = useState(null);
-
-  console.log("plant", plant);
+  const [areaAgri, setAreaAgri] = useState(null);
+  const [result, setResult] = useState(null);
 
   const onChangeProvince = (provId) => {
     setSelectedProvince(provId);
@@ -61,8 +62,8 @@ const FormWaterConsumption = () => {
   const filterOptionProvince = (input, option) =>
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
-  const onChangePlant = (planId) => {
-    setSelectedPlant(planId);
+  const onChangePlant = (planVal) => {
+    setSelectedPlant(planVal);
   };
 
   const onSearchPlant = (value) => {
@@ -104,7 +105,13 @@ const FormWaterConsumption = () => {
     setWaterDemand(e.target.value);
   };
 
+  const onChangeAreaAgri = (e) => {
+    setAreaAgri(e.target.value);
+  };
+
   const onClickCalculate = async () => {
+    let sum = 0
+
     await axios
       .post(postCalWaterDay, {
         area_id: area,
@@ -112,8 +119,21 @@ const FormWaterConsumption = () => {
         number_day: Number(waterDemand),
       })
       .then((response) => {
-        setResult(response.data.result);
+        sum += response.data.result
+        setResultDay(response.data.result);
       });
+
+    await axios
+      .post(postCalWaterAgri, {
+        plant_value: Number(selectedPlant),
+        farm_area: Number(areaAgri),
+      })
+      .then((response) => {
+        sum += response.data.result
+        setResultAgri(response.data.result);
+      });
+
+      setResult(sum)
   };
 
   //---------------------------------------------------------------------
@@ -186,29 +206,41 @@ const FormWaterConsumption = () => {
       layout="horizontal"
       labelAlign={"left"}
     >
-      <Select
-        className="water-consumption-dropdown"
-        showSearch
-        placeholder="จังหวัด"
-        optionFilterProp="children"
-        value={selectedProvince}
-        onChange={onChangeProvince}
-        onSearch={onSearchProvince}
-        filterOption={filterOptionProvince}
-        options={province}
-      />
+      <Form.Item label="เลือกจังหวัด">
+        <Select
+          className="water-consumption-dropdown"
+          showSearch
+          placeholder="จังหวัด"
+          optionFilterProp="children"
+          value={selectedProvince}
+          onChange={onChangeProvince}
+          onSearch={onSearchProvince}
+          filterOption={filterOptionProvince}
+          options={province}
+        />
+      </Form.Item>
 
-      <Select
-        className="water-agriculture-dropdown"
-        showSearch
-        placeholder="พันธุ์พืช"
-        optionFilterProp="children"
-        value={selectedPlant}
-        onChange={onChangePlant}
-        onSearch={onSearchPlant}
-        filterOption={filterOptionPlant}
-        options={plant}
-      />
+      <Form.Item label="เลือกพันธุ์พืช">
+        <Select
+          className="water-agriculture-dropdown"
+          showSearch
+          placeholder="พันธุ์พืช"
+          optionFilterProp="children"
+          value={selectedPlant}
+          onChange={onChangePlant}
+          onSearch={onSearchPlant}
+          filterOption={filterOptionPlant}
+          options={plant}
+        />
+      </Form.Item>
+
+      <Form.Item label="พื้นที่" onChange={onChangeAreaAgri}>
+        <InputNumber
+          className="water-agriculture-area-number"
+          value={areaAgri}
+        />{" "}
+        ไร่
+      </Form.Item>
 
       <br />
       <br />
