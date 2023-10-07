@@ -16,7 +16,7 @@ func FormulaWaterIndustry(industryValue float64, IndustryAreaSize float64) float
 
 func FormulaWaterPlant(plantValue float64, areaPlant float64) float64 {
 	// ETc=Kc*ETo
-	log.Info().Msgf("[FormulaWaterPlant]: %f * %f * %f", plantValue, areaPlant)
+	log.Info().Msgf("[FormulaWaterPlant]: %f * %f", plantValue, areaPlant)
 	return plantValue * areaPlant
 }
 

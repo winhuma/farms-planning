@@ -5,8 +5,6 @@ import (
 	"farms-planning/app/repo"
 	"farms-planning/myconfig/models"
 	"farms-planning/pkg/myfunc"
-	"fmt"
-	"strconv"
 	"strings"
 )
 
@@ -101,23 +99,7 @@ func (s *serviceWaterRequire) WaterRequirePlantGetAll() (interface{}, error) {
 }
 
 func (s *serviceWaterRequire) WaterRequirePlantCal(userData models.BodyWaterPlantCal) (interface{}, error) {
-	dPlantByProvince, err := s.rwr.WaterRequirePlantGetByProvinceID(userData.ProvinceID)
-	if err != nil {
-		return nil, myfunc.MyErrFormat(err)
-	}
-
-	pData := map[string]interface{}{}
-	err = json.Unmarshal([]byte(dPlantByProvince.PlantData), &pData)
-	if err != nil {
-		return nil, err
-	}
-
-	plantValue, err := strconv.ParseFloat(fmt.Sprint(pData[userData.PlantName]), 64)
-	if err != nil {
-		return nil, err
-	}
-
-	result := FormulaWaterPlant(plantValue, userData.FarmArea)
+	result := FormulaWaterPlant(userData.PlantValue, userData.FarmArea)
 	return result, nil
 }
 

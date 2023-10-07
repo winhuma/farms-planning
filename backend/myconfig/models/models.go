@@ -11,8 +11,7 @@ type (
 		IndustryAreaSize float64 `json:"industry_area_size"`
 	}
 	BodyWaterPlantCal struct {
-		PlantName  string  `json:"plant_name"`
-		ProvinceID int     `json:"province_id"`
+		PlantValue float64 `json:"plant_value"`
 		FarmArea   float64 `json:"farm_area"`
 	}
 	BodyWaterAnimalCal struct {
