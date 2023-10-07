@@ -7,6 +7,7 @@ import (
 	"farms-planning/pkg/myfunc"
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 type serviceWaterRequire struct {
@@ -76,6 +77,16 @@ func (s *serviceWaterRequire) WaterRequirePlantGetAll() (interface{}, error) {
 		err := json.Unmarshal([]byte(plant.PlantData), &pData)
 		if err != nil {
 			return nil, myfunc.MyErrFormat(err)
+		}
+
+		for kName, _ := range pData {
+			if strings.Contains(kName, "จังหวัด") {
+				delete(pData, kName)
+			} else if strings.Contains(kName, "ลำดับ") {
+				delete(pData, kName)
+			} else if strings.Contains(kName, "หน่วย") {
+				delete(pData, kName)
+			}
 		}
 
 		var re = map[string]interface{}{
