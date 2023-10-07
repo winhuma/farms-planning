@@ -107,7 +107,7 @@ const FormWaterConsumption = () => {
   const onClickCalculate = async () => {
     await axios
       .post(postCalWaterDay, {
-        area_name: area,
+        area_id: area,
         number_person: Number(numPeople),
         number_day: Number(waterDemand),
       })
@@ -154,12 +154,12 @@ const FormWaterConsumption = () => {
     >
       <Form.Item label="เขตพื้นที่">
         <Radio.Group onChange={onChangeRadioArea} value={area}>
-          <Radio value="กรุงเทพฯ"> กรุงเทพฯ </Radio>
-          <Radio value="องการบริหารส่วนตำบล"> องการบริหารส่วนตำบล </Radio>
-          <Radio value="เทศบาลตำบล"> เทศบาลตำบล </Radio>
-          <Radio value="เทศบาลนคร"> เทศบาลนคร </Radio>
-          <Radio value="เมืองพัทยา"> เมืองพัทยา </Radio>
-          <Radio value="เทศบาลเมือง"> เทศบาลเมือง </Radio>
+          <Radio value={5}> กรุงเทพฯ </Radio>
+          <Radio value={1}> องการบริหารส่วนตำบล </Radio>
+          <Radio value={2}> เทศบาลตำบล </Radio>
+          <Radio value={3}> เทศบาลนคร </Radio>
+          <Radio value={4}> เมืองพัทยา </Radio>
+          <Radio value={6}> เทศบาลเมือง </Radio>
         </Radio.Group>
       </Form.Item>
 
