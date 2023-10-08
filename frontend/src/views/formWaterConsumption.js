@@ -15,16 +15,22 @@ import {
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
 const getPlant = apiEndpoint + "/waters?type=plant";
+const getLivestock = apiEndpoint + "/waters?type=animal";
+const getIndustry = apiEndpoint + "/waters?type=industry";
 const postCalWaterDay = apiEndpoint + "/waters/calculate/day";
 const postCalWaterAgri = apiEndpoint + "/waters/calculate/plant";
+const postCalWaterAnim = apiEndpoint + "/waters/calculate/animal";
+const postCalWaterIndu = apiEndpoint + "/waters/calculate/industry";
 
 const FormWaterConsumption = () => {
+  const [activeTabKey, setActiveTabKey] = useState("day");
+
   const [area, setArea] = useState(null);
   const [numPeople, setNumPeople] = useState(null);
   const [waterDemand, setWaterDemand] = useState(null);
   const [resultDay, setResultDay] = useState(null);
+
   const [resultAgri, setResultAgri] = useState(null);
-  const [activeTabKey, setActiveTabKey] = useState("day");
   const [selectedProvince, setSelectedProvince] = useState(null);
   const [searchProvince, setSearchProvince] = useState(null);
   const [province, setProvince] = useState(null);
@@ -33,6 +39,23 @@ const FormWaterConsumption = () => {
   const [plant, setPlant] = useState(null);
   const [resPlant, setResPlant] = useState(null);
   const [areaAgri, setAreaAgri] = useState(null);
+
+  const [livestock, setLivestock] = useState(null);
+  const [resLivestock, setResLivestock] = useState(null);
+  const [selectedAnimal, setSelectedAnimal] = useState(null);
+  const [searchAnimal, setSearchAnimal] = useState(null);
+  const [amountAnimal, setAmountAnimal] = useState(null);
+  const [waterAnimal, setWaterAnimal] = useState(null);
+  const [resultLive, setResultLive] = useState(null);
+
+  const [industry, setIndustry] = useState(null);
+  const [resIndustry, setResIndustry] = useState(null);
+  const [selectedIndustry, setSelectedIndustry] = useState(null);
+  const [searchIndustry, setSearchIndustry] = useState(null);
+  const [areaIndustry, setAreaIndustry] = useState(null);
+  const [waterIndustry, setWaterIndustry] = useState(null);
+  const [resultIndu, setResultIndu] = useState(null);
+
   const [result, setResult] = useState(null);
 
   const onChangeProvince = (provId) => {
@@ -90,6 +113,36 @@ const FormWaterConsumption = () => {
         setProvince(resp);
         setResPlant(response.data.result);
       });
+    } else if (key === "livestock") {
+      await axios.get(getLivestock).then((response) => {
+        let resp = [];
+        for (let prov of response.data.result) {
+          resp = [
+            ...resp,
+            {
+              value: prov["id"],
+              label: prov["animal_name"],
+            },
+          ];
+        }
+        setLivestock(resp);
+        setResLivestock(response.data.result);
+      });
+    } else if (key === "industry") {
+      await axios.get(getIndustry).then((response) => {
+        let resp = [];
+        for (let prov of response.data.result) {
+          resp = [
+            ...resp,
+            {
+              value: prov["id"],
+              label: prov["industry_name"],
+            },
+          ];
+        }
+        setIndustry(resp);
+        setResIndustry(response.data.result);
+      });
     }
   };
 
@@ -109,9 +162,46 @@ const FormWaterConsumption = () => {
     setAreaAgri(e.target.value);
   };
 
-  const onClickCalculate = async () => {
-    let sum = 0
+  const onChangeAnimal = (animId) => {
+    setSelectedAnimal(animId);
+  };
 
+  const onSearchAnimal = (name) => {
+    setSearchAnimal(name);
+  };
+
+  const filterOptionAnimal = (input, option) =>
+    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+
+  const onChangeAmountAnimal = (e) => {
+    setAmountAnimal(e.target.value);
+  };
+
+  const onChangeWaterAnimal = (e) => {
+    setWaterAnimal(e.target.value);
+  };
+
+  const onChangeIndustry = (induId) => {
+    setSelectedIndustry(induId);
+  };
+
+  const onSearchIndustry = (name) => {
+    setSearchIndustry(name);
+  };
+
+  const onChangeAreaIndu = (e) => {
+    setAreaIndustry(e.target.value);
+  };
+
+  const onChangeWaterIndu = (e) => {
+    setWaterIndustry(e.target.value);
+  };
+
+  const filterOptionIndustry = (input, option) =>
+    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+
+  const onClickCalculate = async () => {
+    let sum = 0;
     await axios
       .post(postCalWaterDay, {
         area_id: area,
@@ -119,21 +209,39 @@ const FormWaterConsumption = () => {
         number_day: Number(waterDemand),
       })
       .then((response) => {
-        sum += response.data.result
+        sum += response.data.result;
         setResultDay(response.data.result);
       });
-
     await axios
       .post(postCalWaterAgri, {
         plant_value: Number(selectedPlant),
         farm_area: Number(areaAgri),
       })
       .then((response) => {
-        sum += response.data.result
+        sum += response.data.result;
         setResultAgri(response.data.result);
       });
-
-      setResult(sum)
+    await axios
+      .post(postCalWaterAnim, {
+        animal_id: Number(selectedAnimal),
+        number_animal: Number(amountAnimal),
+        number_day: Number(waterAnimal),
+      })
+      .then((response) => {
+        sum += response.data.result;
+        setResultLive(response.data.result);
+      });
+    await axios
+      .post(postCalWaterIndu, {
+        industry_id: Number(selectedIndustry),
+        industry_area_size: Number(areaIndustry),
+        number_day: Number(waterIndustry),
+      })
+      .then((response) => {
+        sum += response.data.result;
+        setResultIndu(response.data.result);
+      });
+    setResult(sum);
   };
 
   //---------------------------------------------------------------------
@@ -241,15 +349,88 @@ const FormWaterConsumption = () => {
         />{" "}
         ไร่
       </Form.Item>
-
-      <br />
-      <br />
     </Form>
   );
 
-  const formLiv = <p> Livestock </p>;
+  const formLiv = (
+    <Form
+      className="water-consumption-form"
+      labelCol={{ span: 3 }}
+      wrapperCol={{ span: 24 }}
+      layout="horizontal"
+      labelAlign={"left"}
+    >
+      <Form.Item label="เลือกประเภทสัตว์">
+        <Select
+          className="water-livestock-dropdown"
+          showSearch
+          placeholder="สัตว์"
+          optionFilterProp="children"
+          value={selectedAnimal}
+          onChange={onChangeAnimal}
+          onSearch={onSearchAnimal}
+          filterOption={filterOptionAnimal}
+          options={livestock}
+        />
+      </Form.Item>
 
-  const formInd = <p> Industry </p>;
+      <Form.Item label="จำนวนสัตว์" onChange={onChangeAmountAnimal}>
+        <InputNumber
+          className="water-livestock-amount-animal"
+          value={amountAnimal}
+        />{" "}
+        ตัว
+      </Form.Item>
+
+      <Form.Item label="ความต้องการน้ำ" onChange={onChangeWaterAnimal}>
+        <InputNumber
+          className="water-livestock-water-animal"
+          value={waterAnimal}
+        />{" "}
+        วัน
+      </Form.Item>
+    </Form>
+  );
+
+  const formInd = (
+    <Form
+      className="water-consumption-form"
+      labelCol={{ span: 3 }}
+      wrapperCol={{ span: 24 }}
+      layout="horizontal"
+      labelAlign={"left"}
+    >
+      <Form.Item label="เลือกอุตสาหกรรม">
+        <Select
+          className="water-industry-dropdown"
+          showSearch
+          placeholder="อุตสาหกรรม"
+          optionFilterProp="children"
+          value={selectedIndustry}
+          onChange={onChangeIndustry}
+          onSearch={onSearchIndustry}
+          filterOption={filterOptionIndustry}
+          options={industry}
+        />
+      </Form.Item>
+
+      <Form.Item label="พื้นที่" onChange={onChangeAreaIndu}>
+        <InputNumber
+          className="water-industry-area"
+          value={areaIndustry}
+        />{" "}
+        ไร่
+      </Form.Item>
+
+      <Form.Item label="ความต้องการน้ำ" onChange={onChangeWaterIndu}>
+        <InputNumber
+          className="water-industry-water"
+          value={waterIndustry}
+        />{" "}
+        วัน
+      </Form.Item>
+    </Form>
+  );
 
   const contentList = {
     day: formDay,
