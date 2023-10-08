@@ -9,9 +9,9 @@ func FormulaWaterDay(areaValue float64, numberDay float64, numberPerson float64)
 	return areaValue * numberDay * numberPerson
 }
 
-func FormulaWaterIndustry(industryValue float64, IndustryAreaSize float64) float64 {
-	log.Info().Msgf("[FormulaWaterIndustry]: %f * %f", industryValue, IndustryAreaSize)
-	return industryValue * IndustryAreaSize
+func FormulaWaterIndustry(industryValue float64, IndustryAreaSize float64, numberDay float64) float64 {
+	log.Info().Msgf("[FormulaWaterIndustry]: %f * %f * %f", industryValue, IndustryAreaSize, numberDay)
+	return industryValue * IndustryAreaSize * numberDay
 }
 
 func FormulaWaterPlant(plantValue float64, areaPlant float64) float64 {

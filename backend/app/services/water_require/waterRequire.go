@@ -48,7 +48,7 @@ func (s *serviceWaterRequire) WaterRequireIndustryCal(userData models.BodyWaterI
 		return nil, err
 	}
 
-	result = FormulaWaterIndustry(industryData.Value, userData.IndustryAreaSize)
+	result = FormulaWaterIndustry(industryData.Value, userData.IndustryAreaSize, float64(userData.NumberDay))
 
 	return result, nil
 }

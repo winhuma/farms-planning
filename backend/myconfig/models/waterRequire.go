@@ -9,6 +9,7 @@ type (
 	BodyWaterIndustryCal struct {
 		IndustryID       int     `json:"industry_id"`
 		IndustryAreaSize float64 `json:"industry_area_size"`
+		NumberDay        int     `json:"number_day"`
 	}
 	BodyWaterPlantCal struct {
 		PlantValue float64 `json:"plant_value"`
