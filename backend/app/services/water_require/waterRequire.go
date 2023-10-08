@@ -115,10 +115,10 @@ func (s *serviceWaterRequire) WaterRequireAnimalCal(userData models.BodyWaterAni
 		return result, failMSG, myfunc.MyErrFormat(err)
 	}
 
-	if dAnimal.ID == 0 {
-		failMSG = "not found this animal id."
-		return result, failMSG, nil
-	}
+	// if dAnimal.ID == 0 {
+	// 	failMSG = "not found this animal id."
+	// 	return result, failMSG, nil
+	// }
 
 	result = FormulaWaterAnimal(dAnimal.Value, float64(userData.NumAnimal), float64(userData.NumDay))
 	return result, failMSG, nil
