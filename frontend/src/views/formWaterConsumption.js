@@ -11,6 +11,8 @@ import {
   Card,
   Divider,
   Select,
+  Row,
+  Col,
 } from "antd";
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
@@ -415,18 +417,11 @@ const FormWaterConsumption = () => {
       </Form.Item>
 
       <Form.Item label="พื้นที่" onChange={onChangeAreaIndu}>
-        <InputNumber
-          className="water-industry-area"
-          value={areaIndustry}
-        />{" "}
-        ไร่
+        <InputNumber className="water-industry-area" value={areaIndustry} /> ไร่
       </Form.Item>
 
       <Form.Item label="ความต้องการน้ำ" onChange={onChangeWaterIndu}>
-        <InputNumber
-          className="water-industry-water"
-          value={waterIndustry}
-        />{" "}
+        <InputNumber className="water-industry-water" value={waterIndustry} />{" "}
         วัน
       </Form.Item>
     </Form>
@@ -477,6 +472,64 @@ const FormWaterConsumption = () => {
             คำนวณ
           </Button>
         </Form.Item>
+
+        <Row>
+          <Col span={12}>
+            <Form.Item
+              label="อุปโภค-บริโภค"
+              className="water-consumption-form-result"
+            >
+              <Input
+                className="water-consumption-input-result"
+                disabled
+                value={resultDay}
+              />{" "}
+              ลูกบาศก์เมตร
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="เพาะปลูก"
+              className="water-consumption-form-result"
+            >
+              <Input
+                className="water-consumption-input-result"
+                disabled
+                value={resultAgri}
+              />{" "}
+              ลูกบาศก์เมตร
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col span={12}>
+            <Form.Item
+              label="ปศุสัตว์"
+              className="water-consumption-form-result"
+            >
+              <Input
+                className="water-consumption-input-result"
+                disabled
+                value={resultLive}
+              />{" "}
+              ลูกบาศก์เมตร
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              label="อุตสาหกรรม"
+              className="water-consumption-form-result"
+            >
+              <Input
+                className="water-consumption-input-result"
+                disabled
+                value={resultIndu}
+              />{" "}
+              ลูกบาศก์เมตร
+            </Form.Item>
+          </Col>
+        </Row>
       </Card>
     </div>
   );
