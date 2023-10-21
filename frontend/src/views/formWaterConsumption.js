@@ -11,8 +11,8 @@ import {
   Card,
   Divider,
   Select,
-  Row,
-  Col,
+  Spin,
+  Modal,
 } from "antd";
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
@@ -26,6 +26,9 @@ const postCalWaterIndu = apiEndpoint + "/waters/calculate/industry";
 
 const FormWaterConsumption = () => {
   const [activeTabKey, setActiveTabKey] = useState("day");
+  const [loading, setLoading] = useState(false);
+  const [isModalInfoOpen, setIsModalInfoOpen] = useState(false);
+  const [isInfoButtonOpen, setIsInfoButtonOpen] = useState(true);
 
   const [area, setArea] = useState(null);
   const [numPeople, setNumPeople] = useState(null);
@@ -62,6 +65,7 @@ const FormWaterConsumption = () => {
 
   const onChangeProvince = (provId) => {
     setSelectedProvince(provId);
+    setSelectedPlant(null);
     for (let prov of resPlant) {
       if (prov["province_id"] === provId) {
         let plantList = [];
@@ -203,6 +207,7 @@ const FormWaterConsumption = () => {
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
   const onClickCalculate = async () => {
+    setLoading(true);
     let sum = 0;
     await axios
       .post(postCalWaterDay, {
@@ -244,6 +249,8 @@ const FormWaterConsumption = () => {
         setResultIndu(response.data.result);
       });
     setResult(sum);
+    setLoading(false);
+    setIsInfoButtonOpen(false);
   };
 
   //---------------------------------------------------------------------
@@ -434,6 +441,16 @@ const FormWaterConsumption = () => {
     industry: formInd,
   };
 
+  const showModalInfo = () => {
+    if (isModalInfoOpen === true) {
+      setIsModalInfoOpen(false);
+    } else {
+      setIsModalInfoOpen(true);
+    }
+  };
+
+  console.log("modal==", isModalInfoOpen);
+
   //======================================================================
 
   return (
@@ -454,82 +471,81 @@ const FormWaterConsumption = () => {
 
         <Divider />
 
-        <Form.Item
-          label="ความต้องการน้ำทั้งหมด"
-          className="water-consumption-form-result"
-        >
-          <Input
-            className="water-consumption-input-result"
-            disabled
-            value={result}
-          />{" "}
-          ลูกบาศก์เมตร
-          <Button
-            className="water-consumption-button"
-            type="primary"
-            onClick={onClickCalculate}
+        <Spin spinning={loading}>
+          <Form.Item
+            label="ความต้องการน้ำทั้งหมด"
+            className="water-consumption-form-result"
           >
-            คำนวณ
+            <Input
+              className="water-consumption-input-result"
+              disabled
+              value={result}
+            />{" "}
+            ลูกบาศก์เมตร
+            <Button
+              className="water-consumption-button"
+              type="primary"
+              onClick={onClickCalculate}
+              loading={loading}
+              shape="round"
+            >
+              คำนวณ
+            </Button>
+          </Form.Item>
+
+          <Button
+            type="primary"
+            onClick={showModalInfo}
+            disabled={isInfoButtonOpen}
+            shape="round"
+            ghost
+          >
+            รายละเอียด
           </Button>
-        </Form.Item>
 
-        <Row>
-          <Col span={12}>
-            <Form.Item
-              label="อุปโภค-บริโภค"
-              className="water-consumption-form-result"
+          <Modal
+            title="รายละเอียด"
+            open={isModalInfoOpen}
+            onOk={showModalInfo}
+            onCancel={showModalInfo}
+            footer={
+              <Button
+                type="primary"
+                onClick={showModalInfo}
+                shape="round"
+                ghost
+              >
+                ตกลง
+              </Button>
+            }
+          >
+            <Form
+              className=""
+              labelCol={{ span: 5 }}
+              wrapperCol={{ span: 25 }}
+              layout="horizontal"
+              labelAlign={"left"}
             >
-              <Input
-                className="water-consumption-input-result"
-                disabled
-                value={resultDay}
-              />{" "}
-              ลูกบาศก์เมตร
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              label="เพาะปลูก"
-              className="water-consumption-form-result"
-            >
-              <Input
-                className="water-consumption-input-result"
-                disabled
-                value={resultAgri}
-              />{" "}
-              ลูกบาศก์เมตร
-            </Form.Item>
-          </Col>
-        </Row>
+              <Form.Item label="อุปโภค-บริโภค" className="info-result-label">
+                <Input className="info-result" disabled value={resultDay} />{" "}
+                ลูกบาศก์เมตร
+              </Form.Item>
+              <Form.Item label="เพาะปลูก">
+                <Input className="info-result" disabled value={resultAgri} />{" "}
+                ลูกบาศก์เมตร
+              </Form.Item>
 
-        <Row>
-          <Col span={12}>
-            <Form.Item
-              label="ปศุสัตว์"
-              className="water-consumption-form-result"
-            >
-              <Input
-                className="water-consumption-input-result"
-                disabled
-                value={resultLive}
-              />{" "}
-              ลูกบาศก์เมตร
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              label="อุตสาหกรรม"
-              className="water-consumption-form-result"
-            >
-              <Input
-                className="water-consumption-input-result"
-                disabled
-                value={resultIndu}
-              />{" "}
-              ลูกบาศก์เมตร
-            </Form.Item>
-          </Col>
-        </Row>
+              <Form.Item label="ปศุสัตว์">
+                <Input className="info-result" disabled value={resultLive} />{" "}
+                ลูกบาศก์เมตร
+              </Form.Item>
+              <Form.Item label="อุตสาหกรรม">
+                <Input className="info-result" disabled value={resultIndu} />{" "}
+                ลูกบาศก์เมตร
+              </Form.Item>
+            </Form>
+          </Modal>
+        </Spin>
       </Card>
     </div>
   );

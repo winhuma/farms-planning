@@ -7,15 +7,15 @@
 }
 
 .water-consumption-form {
-    /* font-weight: bold; */
+    font-weight: bold;
 }
 
 .water-consumption-input-text {
-    width: 20%;
+    width: 40%;
 }
 
 .water-consumption-input-number {
-    width: 20%;
+    width: 40%;
 }
 
 
@@ -24,9 +24,29 @@
 }
 
 .water-consumption-input-result {
-    width: 20%;
+    width: 40%;
     font-weight: bold;
     color: #1890ff;
+}
+
+.water-agriculture-area-number {
+    width: 40%;
+}
+
+.water-livestock-amount-animal {
+    width: 40%;
+}
+
+.water-livestock-water-animal {
+    width: 40%;
+}
+
+.water-industry-area {
+    width: 40%;
+}
+
+.water-industry-water {
+    width: 40%;
 }
 
 .water-consumption-button {
@@ -36,5 +56,13 @@
 }
 
 .water-consumption-dropdown {
-    width: 20%;
+    width: 40%;
+}
+
+.info-result-label {
+    width: 100%;
+}
+
+.info-result{
+    width: 55%;
 }
