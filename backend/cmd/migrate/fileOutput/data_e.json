@@ -2,7 +2,24 @@
     {
         "province_id": 42,
         "province_name": "เชียงราย ",
-        "unit": "อัตราการระเหย พ.ย.-เม.ย.(E)มม.",
+        "unit": "มม.",
+        "unit_fullname": "มิลลิเมตร",
+        "discription": "อัตราการระเหย",
+        "unit_symbol": "E",
+        "value": "560"
+    },
+    {
+        "province_id": 42,
+        "province_name": "เชียงราย ",
+        "unit": "มม.",
+        "discription": "อัตราการระเหย (E)",
+        "range_time": "พ.ย.-เม.ย.", 
+        "value": "560"
+    },
+    {
+        "province_id": 42,
+        "province_name": "เชียงราย ",
+        "unit": "(E)มม.",
         "value": "560"
     },
     {

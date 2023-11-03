@@ -18,7 +18,7 @@ func NewHandlers(s services.Services) Handlers {
 }
 
 func (h *handlers) Hello(c *fiber.Ctx) error {
-	return c.Status(200).SendString("hello plan farm")
+	return c.Status(200).JSON(mymodels.SetResponse("success", "hello plan farm"))
 }
 
 func (h *handlers) ProvinceGet(c *fiber.Ctx) error {

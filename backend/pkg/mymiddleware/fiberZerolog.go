@@ -12,6 +12,8 @@ import (
 	"github.com/rs/zerolog"
 )
 
+const CONTEXT_REQUEST_ID = "request_id"
+
 type logFields struct {
 	RequestID  string
 	Method     string
@@ -42,6 +44,8 @@ func FiberLog() func(*fiber.Ctx) error {
 
 		log := zerolog.New(os.Stderr).With().Timestamp().Logger().Level(zerolog.InfoLevel)
 		rid := strings.ReplaceAll(uuid.New().String(), "-", "")
+
+		c.Context().SetUserValue(CONTEXT_REQUEST_ID, rid)
 
 		fields := &logFields{
 			RequestID: rid,
