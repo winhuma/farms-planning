@@ -5,6 +5,7 @@ import "github.com/gofiber/fiber/v2"
 type Handlers interface {
 	Hello(c *fiber.Ctx) error
 	ProvinceGet(c *fiber.Ctx) error
+	GeneratePDF(c *fiber.Ctx) error
 }
 
 type HandlersWaterRequire interface {

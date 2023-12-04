@@ -5,16 +5,19 @@ import (
 	"farms-planning/app/repo"
 	"farms-planning/myconfig/models"
 	"farms-planning/pkg/myfunc"
+	"farms-planning/pkg/runapp/fiber/logger"
 	"strings"
 )
 
 type serviceWaterRequire struct {
+	log logger.LoggerFiber
 	r   repo.Repo
 	rwr repo.RepoWaterRequire
 }
 
-func NewServiceWaterRequire(r repo.Repo, rwr repo.RepoWaterRequire) ServiceWaterRequire {
+func NewServiceWaterRequire(log logger.LoggerFiber, r repo.Repo, rwr repo.RepoWaterRequire) ServiceWaterRequire {
 	return &serviceWaterRequire{
+		log: log,
 		r:   r,
 		rwr: rwr,
 	}

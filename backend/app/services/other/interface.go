@@ -1,5 +1,8 @@
 package service
 
+import "context"
+
 type Services interface {
-	ProvinceGetAll() (result interface{}, err error)
+	ProvinceGetAll(ctx context.Context) (result interface{}, err error)
+	GeneratePDF(ctx context.Context, userData map[string]interface{}) ([]byte, error)
 }

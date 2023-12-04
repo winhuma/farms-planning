@@ -1,16 +1,17 @@
 package main
 
 import (
-	"farms-planning/myconfig/myserver"
+	"farms-planning/myconfig/appinit"
 	"farms-planning/myconfig/myvar"
 	"farms-planning/pkg/myconnect"
+	"farms-planning/pkg/runapp/fiber/server"
 )
 
 func main() {
 	myvar.SetEnv()
 	db := myconnect.NewPostgres(myvar.ENV_DB_CONNECT)
-	myserver.MiGrateAllDB(db)
-	app := myserver.New()
-	myserver.Route(app, db)
-	myserver.Run(app, myvar.ENV_PORT)
+	appinit.MiGrateAllDB(db)
+	app := server.New()
+	appinit.Route(app, db)
+	server.Run(app, myvar.ENV_PORT)
 }

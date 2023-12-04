@@ -1,4 +1,4 @@
-package myserver
+package appinit
 
 import (
 	"farms-planning/app/handlers"
@@ -6,6 +6,7 @@ import (
 	serETC "farms-planning/app/services/other"
 	serWRC "farms-planning/app/services/water_rain_collect"
 	serWR "farms-planning/app/services/water_require"
+	"farms-planning/pkg/runapp/fiber/logger"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/rs/zerolog/log"
@@ -20,15 +21,18 @@ type appRoute struct {
 
 func Route(app *fiber.App, db *gorm.DB) {
 
-	r := repo.NewRepositories(db)
-	rwr := repo.NewRepoWaterRequire(db)
+	logz := logger.NewLogger()
 
-	s := serETC.NewServices(r)
-	swr := serWR.NewServiceWaterRequire(r, rwr)
-	swrc := serWRC.NewWaterRainCol()
+	r := repo.NewRepositories(logz, db)
+	rwr := repo.NewRepoWaterRequire(logz, db)
+	rdv := repo.NewRepoWaterValue(logz, db)
 
-	h := handlers.NewHandlers(s)
-	hwr := handlers.NewHandlersWaterRequire(swr)
+	s := serETC.NewServices(logz, r)
+	swr := serWR.NewServiceWaterRequire(logz, r, rwr)
+	swrc := serWRC.NewWaterRainCol(logz, rdv)
+
+	h := handlers.NewHandlers(logz, s)
+	hwr := handlers.NewHandlersWaterRequire(logz, swr)
 	_ = swrc
 
 	myroute := []appRoute{}
@@ -81,6 +85,11 @@ func GetRouteOther(h handlers.Handlers) []appRoute {
 			RoutePath:   "/province",
 			RouteMethod: fiber.MethodGet,
 			RouteFunc:   h.ProvinceGet,
+		},
+		{
+			RoutePath:   "/pdf",
+			RouteMethod: fiber.MethodPost,
+			RouteFunc:   h.GeneratePDF,
 		},
 	}
 }

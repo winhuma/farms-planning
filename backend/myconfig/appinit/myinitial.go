@@ -1,4 +1,4 @@
-package myserver
+package appinit
 
 import (
 	"farms-planning/myconfig/models"
@@ -9,11 +9,21 @@ import (
 
 func MiGrateAllDB(db *gorm.DB) {
 	err := db.AutoMigrate(
+
 		&models.DBProvince{},
+
+		// group data water require
 		&models.DBWaterRequiryArea{},
 		&models.DBWaterRequirePlant{},
 		&models.DBWaterRequiryIndustry{},
 		&models.DBWaterRequireAnimal{},
+
+		// group data water rate
+		&models.DBWaterAverageRainPerYear{},
+		&models.DBWaterEvaporationRate{},
+		&models.DBWaterFloodPeakRate{},
+		&models.DBWaterLeakageRate{},
+		&models.DBWaterRunOffRate{},
 	)
 	if err != nil {
 		panic(myfunc.MyErrFormat(err).Error())

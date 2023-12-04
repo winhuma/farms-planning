@@ -3,17 +3,20 @@ package repo
 import (
 	"farms-planning/myconfig/models"
 	"farms-planning/pkg/myfunc"
+	"farms-planning/pkg/runapp/fiber/logger"
 
 	"gorm.io/gorm"
 )
 
 type waterRequire struct {
-	DB *gorm.DB
+	log logger.LoggerFiber
+	DB  *gorm.DB
 }
 
-func NewRepoWaterRequire(db *gorm.DB) RepoWaterRequire {
+func NewRepoWaterRequire(log logger.LoggerFiber, db *gorm.DB) RepoWaterRequire {
 	return &waterRequire{
-		DB: db,
+		log: log,
+		DB:  db,
 	}
 }
 

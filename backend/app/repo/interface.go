@@ -17,3 +17,25 @@ type RepoWaterRequire interface {
 	WaterRequireAnimalGetAll() (result []models.DBWaterRequireAnimal, err error)
 	WaterRequireAnimalGetByID(animalID int) (result models.DBWaterRequireAnimal, err error)
 }
+
+type RepoWaterDataValue interface {
+	WaterEvaporationRateGetAll() ([]models.DBWaterEvaporationRate, error)
+	WaterEvaporationRateByID(eid int) (models.DBWaterEvaporationRate, error)
+	WaterEvaporationRateByProvinceID(provinceID int) (models.DBWaterEvaporationRate, error)
+
+	WaterRunOffRateGetAll() ([]models.DBWaterRunOffRate, error)
+	WaterRunOffRateByID(roID int) (models.DBWaterRunOffRate, error)
+	WaterRunOffRateByProvinceID(provinceID int) (models.DBWaterRunOffRate, error)
+
+	WaterAverageRainPerYearGetAll() ([]models.DBWaterAverageRainPerYear, error)
+	WaterAverageRainPerYearByID(arID int) (models.DBWaterAverageRainPerYear, error)
+	WaterAverageRainPerYearByProvince(provinceID int) (models.DBWaterAverageRainPerYear, error)
+
+	WaterFloodPeakRateGetAll() ([]models.DBWaterFloodPeakRate, error)
+	WaterFloodPeakRateByID(fprID int) (models.DBWaterFloodPeakRate, error)
+	WaterFloodPeakRateByProvinceID(provinceID int) (models.DBWaterFloodPeakRate, error)
+
+	WaterLeakageRateGetAll() ([]models.DBWaterLeakageRate, error)
+	WaterLeakageRateByID(lrID int) (models.DBWaterLeakageRate, error)
+	WaterLeakageRateByProvinceID(provinceID int) (models.DBWaterLeakageRate, error)
+}

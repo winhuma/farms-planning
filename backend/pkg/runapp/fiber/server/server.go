@@ -1,7 +1,7 @@
-package myserver
+package server
 
 import (
-	"farms-planning/pkg/mymiddleware"
+	"farms-planning/pkg/runapp/fiber/middleware"
 	"fmt"
 	"os"
 	"os/signal"
@@ -15,7 +15,7 @@ func New() *fiber.App {
 
 	app := fiber.New()
 	app.Use(cors.New())
-	app.Use(mymiddleware.FiberLog())
+	app.Use(middleware.FiberLog())
 	return app
 }
 

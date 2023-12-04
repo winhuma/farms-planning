@@ -4,16 +4,20 @@ import (
 	"farms-planning/myconfig/models"
 	"farms-planning/pkg/myfunc"
 
+	"farms-planning/pkg/runapp/fiber/logger"
+
 	"gorm.io/gorm"
 )
 
 type repo struct {
-	DB *gorm.DB
+	log logger.LoggerFiber
+	DB  *gorm.DB
 }
 
-func NewRepositories(db *gorm.DB) Repo {
+func NewRepositories(log logger.LoggerFiber, db *gorm.DB) Repo {
 	return &repo{
-		DB: db,
+		log: log,
+		DB:  db,
 	}
 }
 

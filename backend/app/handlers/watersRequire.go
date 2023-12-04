@@ -7,16 +7,19 @@ import (
 	"farms-planning/myconfig/myvar"
 	"farms-planning/pkg/myfunc"
 	"farms-planning/pkg/mymodels"
+	"farms-planning/pkg/runapp/fiber/logger"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 type hWaterRequire struct {
+	log logger.LoggerFiber
 	swr services.ServiceWaterRequire
 }
 
-func NewHandlersWaterRequire(swr services.ServiceWaterRequire) HandlersWaterRequire {
+func NewHandlersWaterRequire(log logger.LoggerFiber, swr services.ServiceWaterRequire) HandlersWaterRequire {
 	return &hWaterRequire{
+		log: log,
 		swr: swr,
 	}
 }
