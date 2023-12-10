@@ -1,0 +1,9 @@
+version: '3'
+services:
+  backend:
+    image: farms-planning-backend:latest
+    environment:
+      DB_CONNECT: 'host=vps1225.vpshispeed.net port=5432 user=myadmin dbname=planfarm password=Abc@12345678 sslmode=disable'
+      PORT: '8081'
+    ports:
+      - 8081:8081
