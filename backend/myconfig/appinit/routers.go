@@ -29,7 +29,7 @@ func Route(app *fiber.App, db *gorm.DB) {
 
 	s := serETC.NewServices(logz, r)
 	swr := serWR.NewServiceWaterRequire(logz, r, rwr)
-	swrc := serWRC.NewWaterRainCol(logz, rdv)
+	swrc := serWRC.NewWaterRainCol(logz, r, rdv)
 
 	h := handlers.NewHandlers(logz, s)
 	hwr := handlers.NewHandlersWaterRequire(logz, swr)

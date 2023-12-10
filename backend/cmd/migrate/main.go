@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"encoding/csv"
 	"encoding/json"
 	"farms-planning/myconfig/appinit"
@@ -13,9 +12,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"time"
 
-	"github.com/go-redis/redis/v8"
 	"github.com/tealeg/xlsx"
 )
 
@@ -29,40 +26,58 @@ type Privince struct {
 }
 
 func main() {
-	ctx, _ := context.WithCancel(context.Background())
-	rdb := redis.NewClient(&redis.Options{
-		Addr: "127.0.0.1:6379",
-		DB:   1,
-	})
-	if err := rdb.Ping(ctx).Err(); err != nil {
-		fmt.Println("fuck u")
-		return
-	}
+	provinceFile := "cmd/migrate/initialSetupData/province.json"
+	rawFile := "cmd/migrate/input/i_r_q_e_s.csv"
+	saveJsonFile := "cmd/migrate/initialSetupData/i_r_q_e_s.json"
 
-	err := rdb.Set(ctx, "test", "1", time.Second*60).Err()
+	data, err := os.ReadFile(provinceFile)
 	if err != nil {
-		fmt.Println("err set: ", err.Error())
+		log.Panicf("Error reading file: %v", err)
 	}
 
-	var1 := rdb.Get(ctx, "test").Val()
-	if err != nil && err != redis.Nil {
-		fmt.Println("err get: ", err.Error())
+	var province = []Privince{}
+	if err := json.Unmarshal(data, &province); err != nil {
+		log.Panicf("Error decoding JSON: %v", err)
 	}
-	fmt.Println(var1)
 
-	var val2 string
-	err = rdb.Get(ctx, "test").Scan(&val2)
-	if err != nil && err != redis.Nil {
-		fmt.Println("err get: ", err.Error())
-	}
-	fmt.Println(val2)
+	csvdata := ReadDataFromCSV(rawFile)
 
-	var result interface{}
-	err = rdb.Get(ctx, "test").Scan(&result)
-	if err != nil && err != redis.Nil {
-		fmt.Println("err get: ", err.Error())
+	fmt.Println(province[0].ID, province[0].ProvinceName)
+	fmt.Println(csvdata[0])
+
+	var result []models.DBProvinceWeather
+	for i, v := range csvdata {
+		if i == 0 {
+			continue
+		}
+
+		var pid = 0
+		fmt.Println(v[0])
+		for _, p := range province {
+			if strings.Contains(v[0], p.ProvinceName) {
+				pid = p.ID
+				break
+			}
+		}
+
+		RainAvgPerYear, _ := strconv.ParseFloat(v[1], 64)
+		EvaporationRate, _ := strconv.ParseFloat(v[2], 64)
+		LeakageRate, _ := strconv.ParseFloat(v[3], 64)
+		RunoffRate, _ := strconv.ParseFloat(v[4], 64)
+		HighestFloodRate, _ := strconv.ParseFloat(v[4], 64)
+
+		result = append(result, models.DBProvinceWeather{
+			ProvinceID:       pid,
+			RainAvgPerYear:   RainAvgPerYear,
+			EvaporationRate:  EvaporationRate,
+			LeakageRate:      LeakageRate,
+			RunoffRate:       RunoffRate,
+			HighestFloodRate: HighestFloodRate,
+		})
 	}
-	fmt.Println(result)
+
+	WriteJSONToFile(saveJsonFile, result)
+
 }
 
 func UpdateDataToDB() {

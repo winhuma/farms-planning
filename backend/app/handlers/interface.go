@@ -15,3 +15,11 @@ type HandlersWaterRequire interface {
 	WaterPlantCal(c *fiber.Ctx) error
 	WaterAnimalCal(c *fiber.Ctx) error
 }
+
+type HandlersWaterCapacity interface {
+	GetAverageRunoffPerYearAll(c *fiber.Ctx) error
+	GetAverageRunoffPerYearByProvinceID(c *fiber.Ctx) error
+	CalSurfaceAreaAtReservoirLevel(c *fiber.Ctx) error
+	CalareaReceivesRainwater(c *fiber.Ctx) error
+	CalAverageRunoffPerYear(c *fiber.Ctx) error
+}

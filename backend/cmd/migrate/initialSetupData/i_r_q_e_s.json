@@ -1,0 +1,686 @@
+[
+    {
+        "id": 0,
+        "province_id": 42,
+        "rain_avg_per_year": 1726,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 575200,
+        "highest_flood_rate": 575200
+    },
+    {
+        "id": 0,
+        "province_id": 11,
+        "rain_avg_per_year": 1129,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 238600,
+        "highest_flood_rate": 238600
+    },
+    {
+        "id": 0,
+        "province_id": 34,
+        "rain_avg_per_year": 1129,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 238600,
+        "highest_flood_rate": 238600
+    },
+    {
+        "id": 0,
+        "province_id": 25,
+        "rain_avg_per_year": 1129,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 238600,
+        "highest_flood_rate": 238600
+    },
+    {
+        "id": 0,
+        "province_id": 44,
+        "rain_avg_per_year": 1129,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 238600,
+        "highest_flood_rate": 238600
+    },
+    {
+        "id": 0,
+        "province_id": 37,
+        "rain_avg_per_year": 1157,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 195900,
+        "highest_flood_rate": 195900
+    },
+    {
+        "id": 0,
+        "province_id": 21,
+        "rain_avg_per_year": 1328,
+        "evaporation_rate": 407,
+        "leakage_rate": 540,
+        "runoff_rate": 272900,
+        "highest_flood_rate": 272900
+    },
+    {
+        "id": 0,
+        "province_id": 63,
+        "rain_avg_per_year": 1328,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 272900,
+        "highest_flood_rate": 272900
+    },
+    {
+        "id": 0,
+        "province_id": 60,
+        "rain_avg_per_year": 1258,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 319700,
+        "highest_flood_rate": 319700
+    },
+    {
+        "id": 0,
+        "province_id": 6,
+        "rain_avg_per_year": 1212,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 270400,
+        "highest_flood_rate": 270400
+    },
+    {
+        "id": 0,
+        "province_id": 57,
+        "rain_avg_per_year": 1129,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 238600,
+        "highest_flood_rate": 238600
+    },
+    {
+        "id": 0,
+        "province_id": 14,
+        "rain_avg_per_year": 1258,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 319700,
+        "highest_flood_rate": 319700
+    },
+    {
+        "id": 0,
+        "province_id": 26,
+        "rain_avg_per_year": 1212,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 270400,
+        "highest_flood_rate": 270400
+    },
+    {
+        "id": 0,
+        "province_id": 46,
+        "rain_avg_per_year": 1212,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 270400,
+        "highest_flood_rate": 270400
+    },
+    {
+        "id": 0,
+        "province_id": 3,
+        "rain_avg_per_year": 1212,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 270400,
+        "highest_flood_rate": 270400
+    },
+    {
+        "id": 0,
+        "province_id": 59,
+        "rain_avg_per_year": 1212,
+        "evaporation_rate": 560,
+        "leakage_rate": 540,
+        "runoff_rate": 270400,
+        "highest_flood_rate": 270400
+    },
+    {
+        "id": 0,
+        "province_id": 33,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    },
+    {
+        "id": 0,
+        "province_id": 65,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    },
+    {
+        "id": 0,
+        "province_id": 31,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    },
+    {
+        "id": 0,
+        "province_id": 74,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    },
+    {
+        "id": 0,
+        "province_id": 38,
+        "rain_avg_per_year": 1325,
+        "evaporation_rate": 753,
+        "leakage_rate": 360,
+        "runoff_rate": 235800,
+        "highest_flood_rate": 235800
+    },
+    {
+        "id": 0,
+        "province_id": 2,
+        "rain_avg_per_year": 1325,
+        "evaporation_rate": 753,
+        "leakage_rate": 360,
+        "runoff_rate": 235800,
+        "highest_flood_rate": 235800
+    },
+    {
+        "id": 0,
+        "province_id": 5,
+        "rain_avg_per_year": 2354,
+        "evaporation_rate": 753,
+        "leakage_rate": 360,
+        "runoff_rate": 934700,
+        "highest_flood_rate": 934700
+    },
+    {
+        "id": 0,
+        "province_id": 4,
+        "rain_avg_per_year": 2354,
+        "evaporation_rate": 753,
+        "leakage_rate": 360,
+        "runoff_rate": 934700,
+        "highest_flood_rate": 934700
+    },
+    {
+        "id": 0,
+        "province_id": 22,
+        "rain_avg_per_year": 1611,
+        "evaporation_rate": 753,
+        "leakage_rate": 360,
+        "runoff_rate": 403300,
+        "highest_flood_rate": 403300
+    },
+    {
+        "id": 0,
+        "province_id": 17,
+        "rain_avg_per_year": 1212,
+        "evaporation_rate": 753,
+        "leakage_rate": 360,
+        "runoff_rate": 213700,
+        "highest_flood_rate": 213700
+    },
+    {
+        "id": 0,
+        "province_id": 52,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    },
+    {
+        "id": 0,
+        "province_id": 56,
+        "rain_avg_per_year": 1054,
+        "evaporation_rate": 598,
+        "leakage_rate": 360,
+        "runoff_rate": 126500,
+        "highest_flood_rate": 126500
+    },
+    {
+        "id": 0,
+        "province_id": 66,
+        "rain_avg_per_year": 1054,
+        "evaporation_rate": 598,
+        "leakage_rate": 360,
+        "runoff_rate": 126500,
+        "highest_flood_rate": 126500
+    },
+    {
+        "id": 0,
+        "province_id": 49,
+        "rain_avg_per_year": 1054,
+        "evaporation_rate": 598,
+        "leakage_rate": 360,
+        "runoff_rate": 126500,
+        "highest_flood_rate": 126500
+    },
+    {
+        "id": 0,
+        "province_id": 32,
+        "rain_avg_per_year": 1054,
+        "evaporation_rate": 598,
+        "leakage_rate": 360,
+        "runoff_rate": 126500,
+        "highest_flood_rate": 126500
+    },
+    {
+        "id": 0,
+        "province_id": 35,
+        "rain_avg_per_year": 1054,
+        "evaporation_rate": 598,
+        "leakage_rate": 360,
+        "runoff_rate": 126500,
+        "highest_flood_rate": 126500
+    },
+    {
+        "id": 0,
+        "province_id": 53,
+        "rain_avg_per_year": 1975,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 280400,
+        "highest_flood_rate": 280400
+    },
+    {
+        "id": 0,
+        "province_id": 64,
+        "rain_avg_per_year": 2911,
+        "evaporation_rate": 386,
+        "leakage_rate": 540,
+        "runoff_rate": 1357100,
+        "highest_flood_rate": 1357100
+    },
+    {
+        "id": 0,
+        "province_id": 73,
+        "rain_avg_per_year": 1975,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 280400,
+        "highest_flood_rate": 280400
+    },
+    {
+        "id": 0,
+        "province_id": 55,
+        "rain_avg_per_year": 2520,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 833200,
+        "highest_flood_rate": 833200
+    },
+    {
+        "id": 0,
+        "province_id": 48,
+        "rain_avg_per_year": 2240,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 794400,
+        "highest_flood_rate": 794400
+    },
+    {
+        "id": 0,
+        "province_id": 39,
+        "rain_avg_per_year": 2240,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 794400,
+        "highest_flood_rate": 794400
+    },
+    {
+        "id": 0,
+        "province_id": 24,
+        "rain_avg_per_year": 2911,
+        "evaporation_rate": 386,
+        "leakage_rate": 540,
+        "runoff_rate": 1357100,
+        "highest_flood_rate": 1357100
+    },
+    {
+        "id": 0,
+        "province_id": 77,
+        "rain_avg_per_year": 2240,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 794400,
+        "highest_flood_rate": 794400
+    },
+    {
+        "id": 0,
+        "province_id": 75,
+        "rain_avg_per_year": 2520,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 833200,
+        "highest_flood_rate": 833200
+    },
+    {
+        "id": 0,
+        "province_id": 41,
+        "rain_avg_per_year": 2240,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 794400,
+        "highest_flood_rate": 794400
+    },
+    {
+        "id": 0,
+        "province_id": 36,
+        "rain_avg_per_year": 1633,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 596900,
+        "highest_flood_rate": 596900
+    },
+    {
+        "id": 0,
+        "province_id": 71,
+        "rain_avg_per_year": 1633,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 596900,
+        "highest_flood_rate": 596900
+    },
+    {
+        "id": 0,
+        "province_id": 54,
+        "rain_avg_per_year": 1633,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 596900,
+        "highest_flood_rate": 596900
+    },
+    {
+        "id": 0,
+        "province_id": 70,
+        "rain_avg_per_year": 2278,
+        "evaporation_rate": 524,
+        "leakage_rate": 540,
+        "runoff_rate": 715400,
+        "highest_flood_rate": 715400
+    },
+    {
+        "id": 0,
+        "province_id": 23,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    },
+    {
+        "id": 0,
+        "province_id": 62,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    },
+    {
+        "id": 0,
+        "province_id": 1,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    },
+    {
+        "id": 0,
+        "province_id": 43,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    },
+    {
+        "id": 0,
+        "province_id": 28,
+        "rain_avg_per_year": 1614,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 472900,
+        "highest_flood_rate": 472900
+    },
+    {
+        "id": 0,
+        "province_id": 15,
+        "rain_avg_per_year": 1614,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 472900,
+        "highest_flood_rate": 472900
+    },
+    {
+        "id": 0,
+        "province_id": 61,
+        "rain_avg_per_year": 1151,
+        "evaporation_rate": 572,
+        "leakage_rate": 360,
+        "runoff_rate": 162300,
+        "highest_flood_rate": 162300
+    },
+    {
+        "id": 0,
+        "province_id": 9,
+        "rain_avg_per_year": 1321,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 235300,
+        "highest_flood_rate": 235300
+    },
+    {
+        "id": 0,
+        "province_id": 29,
+        "rain_avg_per_year": 1429,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 280500,
+        "highest_flood_rate": 280500
+    },
+    {
+        "id": 0,
+        "province_id": 69,
+        "rain_avg_per_year": 1614,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 472900,
+        "highest_flood_rate": 472900
+    },
+    {
+        "id": 0,
+        "province_id": 51,
+        "rain_avg_per_year": 1614,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 472900,
+        "highest_flood_rate": 472900
+    },
+    {
+        "id": 0,
+        "province_id": 30,
+        "rain_avg_per_year": 1321,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 235300,
+        "highest_flood_rate": 235300
+    },
+    {
+        "id": 0,
+        "province_id": 47,
+        "rain_avg_per_year": 1151,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 162300,
+        "highest_flood_rate": 162300
+    },
+    {
+        "id": 0,
+        "province_id": 8,
+        "rain_avg_per_year": 1321,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 235300,
+        "highest_flood_rate": 235300
+    },
+    {
+        "id": 0,
+        "province_id": 40,
+        "rain_avg_per_year": 1151,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 162300,
+        "highest_flood_rate": 162300
+    },
+    {
+        "id": 0,
+        "province_id": 10,
+        "rain_avg_per_year": 1321,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 235300,
+        "highest_flood_rate": 235300
+    },
+    {
+        "id": 0,
+        "province_id": 76,
+        "rain_avg_per_year": 1321,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 235300,
+        "highest_flood_rate": 235300
+    },
+    {
+        "id": 0,
+        "province_id": 20,
+        "rain_avg_per_year": 1429,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 280500,
+        "highest_flood_rate": 280500
+    },
+    {
+        "id": 0,
+        "province_id": 13,
+        "rain_avg_per_year": 1123,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 140600,
+        "highest_flood_rate": 140600
+    },
+    {
+        "id": 0,
+        "province_id": 7,
+        "rain_avg_per_year": 1429,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 280500,
+        "highest_flood_rate": 280500
+    },
+    {
+        "id": 0,
+        "province_id": 45,
+        "rain_avg_per_year": 1123,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 140600,
+        "highest_flood_rate": 140600
+    },
+    {
+        "id": 0,
+        "province_id": 58,
+        "rain_avg_per_year": 1151,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 162300,
+        "highest_flood_rate": 162300
+    },
+    {
+        "id": 0,
+        "province_id": 12,
+        "rain_avg_per_year": 1151,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 162300,
+        "highest_flood_rate": 162300
+    },
+    {
+        "id": 0,
+        "province_id": 19,
+        "rain_avg_per_year": 1321,
+        "evaporation_rate": 796,
+        "leakage_rate": 360,
+        "runoff_rate": 235300,
+        "highest_flood_rate": 235300
+    },
+    {
+        "id": 0,
+        "province_id": 16,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    },
+    {
+        "id": 0,
+        "province_id": 72,
+        "rain_avg_per_year": 1212,
+        "evaporation_rate": 753,
+        "leakage_rate": 360,
+        "runoff_rate": 213700,
+        "highest_flood_rate": 213700
+    },
+    {
+        "id": 0,
+        "province_id": 68,
+        "rain_avg_per_year": 1611,
+        "evaporation_rate": 753,
+        "leakage_rate": 360,
+        "runoff_rate": 403300,
+        "highest_flood_rate": 403300
+    },
+    {
+        "id": 0,
+        "province_id": 67,
+        "rain_avg_per_year": 1611,
+        "evaporation_rate": 753,
+        "leakage_rate": 360,
+        "runoff_rate": 403300,
+        "highest_flood_rate": 403300
+    },
+    {
+        "id": 0,
+        "province_id": 50,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    },
+    {
+        "id": 0,
+        "province_id": 27,
+        "rain_avg_per_year": 1247,
+        "evaporation_rate": 1143,
+        "leakage_rate": 360,
+        "runoff_rate": 227000,
+        "highest_flood_rate": 227000
+    }
+]

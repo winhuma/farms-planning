@@ -54,11 +54,6 @@ type (
 	}
 )
 
-type DBProvince struct {
-	ID           int    `json:"id"`
-	ProvinceName string `json:"province_name"`
-}
-
 func (DBWaterRequiryArea) TableName() string {
 	return "water_require_area"
 }
@@ -77,8 +72,4 @@ func (DBWaterRequirePlant) TableName() string {
 
 func (DBWaterRequireAnimal) TableName() string {
 	return "water_require_animal"
-}
-
-func (DBProvince) TableName() string {
-	return "province"
 }

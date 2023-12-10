@@ -11,6 +11,7 @@ func MiGrateAllDB(db *gorm.DB) {
 	err := db.AutoMigrate(
 
 		&models.DBProvince{},
+		&models.DBProvinceWeather{},
 
 		// group data water require
 		&models.DBWaterRequiryArea{},

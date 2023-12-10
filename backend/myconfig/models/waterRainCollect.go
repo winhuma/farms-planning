@@ -1,6 +1,29 @@
 package models
 
 type (
+	BodyCalSurfaceArea struct {
+		AreaPool    float64 `json:"area_pool"`
+		PercentArea float64 `json:"percent_area"`
+	}
+
+	BodyGetWeatherByProvinceID struct {
+		ProvinceID int `json:"province_id"`
+	}
+
+	BodyCalAreaReceivesRainwater struct {
+		SurfaceArea float64 `json:"surface_area"`
+	}
+	BodyCalAverageRunoffPerYear struct {
+		ProvinceID            int     `json:"province_id"`
+		AreaReceivesRainwater float64 `json:"area_receive_water"`
+	}
+	BodyCalWaterLostFromEvaporation struct {
+		ProvinceID  int     `json:"province_id"`
+		SurfaceArea float64 `json:"surface_area"`
+	}
+)
+
+type (
 	DBWaterEvaporationRate struct {
 		ID            int     `json:"id"`
 		Discription   string  `json:"discription"`

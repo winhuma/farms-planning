@@ -4,6 +4,8 @@ import "farms-planning/myconfig/models"
 
 type Repo interface {
 	ProvinceGetAll() (result []models.DBProvince, err error)
+	ProvinceWeatherGetAll() (result []models.DBProvinceWeather, err error)
+	ProvinceWeatherGetByProvince(provinceID int) (result models.DBProvinceWeather, err error)
 }
 
 type RepoWaterRequire interface {
