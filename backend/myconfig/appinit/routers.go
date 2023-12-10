@@ -33,9 +33,10 @@ func Route(app *fiber.App, db *gorm.DB) {
 
 	h := handlers.NewHandlers(logz, s)
 	hwr := handlers.NewHandlersWaterRequire(logz, swr)
-	_ = swrc
+	hwrc := handlers.NewHandlersWaterCapacity(logz, swrc)
 
 	myroute := []appRoute{}
+	myroute = append(myroute, GetRouteWaterCapacity(hwrc)...)
 	myroute = append(myroute, GetRouteWater(hwr)...)
 	myroute = append(myroute, GetRouteOther(h)...)
 	for _, handle := range myroute {
@@ -70,6 +71,36 @@ func GetRouteWater(h handlers.HandlersWaterRequire) []appRoute {
 			RoutePath:   "/waters/calculate/animal",
 			RouteMethod: fiber.MethodPost,
 			RouteFunc:   h.WaterAnimalCal,
+		},
+	}
+}
+
+func GetRouteWaterCapacity(h handlers.HandlersWaterCapacity) []appRoute {
+	return []appRoute{
+		{
+			RoutePath:   "/capacity/avgrunoffyear",
+			RouteMethod: fiber.MethodGet,
+			RouteFunc:   h.GetAverageRunoffPerYearAll,
+		},
+		{
+			RoutePath:   "/capacity/avgrunoffyear",
+			RouteMethod: fiber.MethodPost,
+			RouteFunc:   h.GetAverageRunoffPerYearByProvinceID,
+		},
+		{
+			RoutePath:   "/capacity/surfacearea",
+			RouteMethod: fiber.MethodPost,
+			RouteFunc:   h.CalSurfaceAreaAtReservoirLevel,
+		},
+		{
+			RoutePath:   "/capacity/areareceiverainwater",
+			RouteMethod: fiber.MethodGet,
+			RouteFunc:   h.CalareaReceivesRainwater,
+		},
+		{
+			RoutePath:   "/capacity",
+			RouteMethod: fiber.MethodPost,
+			RouteFunc:   h.CalWaterCopacity,
 		},
 	}
 }

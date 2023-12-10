@@ -22,4 +22,6 @@ type HandlersWaterCapacity interface {
 	CalSurfaceAreaAtReservoirLevel(c *fiber.Ctx) error
 	CalareaReceivesRainwater(c *fiber.Ctx) error
 	CalAverageRunoffPerYear(c *fiber.Ctx) error
+	CalWaterLostFromEvaporation(c *fiber.Ctx) error
+	CalWaterCopacity(c *fiber.Ctx) error
 }

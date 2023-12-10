@@ -72,7 +72,7 @@ func (s *waterRainCol) CalWaterLostFromLeakage(ctx context.Context) (float64, er
 	return result, nil
 }
 
-func (s *waterRainCol) CalWaterCopacity(ctx context.Context) (float64, error) {
-	var result float64
+func (s *waterRainCol) CalWaterCapacity(ctx context.Context, bodyData models.BodyCalWaterCapacity) (float64, error) {
+	result := FormulaWaterCopacity(bodyData.LostFromEvaporation, bodyData.LostFromLeakage, bodyData.WaterRequire)
 	return result, nil
 }
