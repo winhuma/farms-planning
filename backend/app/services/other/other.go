@@ -27,6 +27,14 @@ func (s *other) ProvinceGetAll(ctx context.Context) (result interface{}, err err
 	return s.r.ProvinceGetAll()
 }
 
+func (s *other) WeatherGetAll(ctx context.Context) (result interface{}, err error) {
+	result, err = s.r.ProvinceWeatherGetAll()
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+}
+
 func (s *other) GeneratePDF(ctx context.Context, userData map[string]interface{}) ([]byte, error) {
 
 	// Create a new PDF document

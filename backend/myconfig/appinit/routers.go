@@ -118,6 +118,11 @@ func GetRouteOther(h handlers.Handlers) []appRoute {
 			RouteFunc:   h.ProvinceGet,
 		},
 		{
+			RoutePath:   "/weather",
+			RouteMethod: fiber.MethodGet,
+			RouteFunc:   h.WeatherGetAll,
+		},
+		{
 			RoutePath:   "/pdf",
 			RouteMethod: fiber.MethodPost,
 			RouteFunc:   h.GeneratePDF,

@@ -33,6 +33,14 @@ func (h *handlers) ProvinceGet(c *fiber.Ctx) error {
 	return c.Status(200).JSON(mymodels.SetResponse("success", result))
 }
 
+func (h *handlers) WeatherGetAll(c *fiber.Ctx) error {
+	result, err := h.s.ProvinceGetAll(c.Context())
+	if err != nil {
+		return err
+	}
+	return c.Status(200).JSON(mymodels.SetResponse("success", result))
+}
+
 func (h *handlers) GeneratePDF(c *fiber.Ctx) error {
 	var mybody map[string]interface{}
 	getbody := c.Body()

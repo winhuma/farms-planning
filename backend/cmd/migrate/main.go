@@ -26,58 +26,7 @@ type Privince struct {
 }
 
 func main() {
-	provinceFile := "cmd/migrate/initialSetupData/province.json"
-	rawFile := "cmd/migrate/input/i_r_q_e_s.csv"
-	saveJsonFile := "cmd/migrate/initialSetupData/i_r_q_e_s.json"
-
-	data, err := os.ReadFile(provinceFile)
-	if err != nil {
-		log.Panicf("Error reading file: %v", err)
-	}
-
-	var province = []Privince{}
-	if err := json.Unmarshal(data, &province); err != nil {
-		log.Panicf("Error decoding JSON: %v", err)
-	}
-
-	csvdata := ReadDataFromCSV(rawFile)
-
-	fmt.Println(province[0].ID, province[0].ProvinceName)
-	fmt.Println(csvdata[0])
-
-	var result []models.DBProvinceWeather
-	for i, v := range csvdata {
-		if i == 0 {
-			continue
-		}
-
-		var pid = 0
-		fmt.Println(v[0])
-		for _, p := range province {
-			if strings.Contains(v[0], p.ProvinceName) {
-				pid = p.ID
-				break
-			}
-		}
-
-		RainAvgPerYear, _ := strconv.ParseFloat(v[1], 64)
-		EvaporationRate, _ := strconv.ParseFloat(v[2], 64)
-		LeakageRate, _ := strconv.ParseFloat(v[3], 64)
-		RunoffRate, _ := strconv.ParseFloat(v[4], 64)
-		HighestFloodRate, _ := strconv.ParseFloat(v[4], 64)
-
-		result = append(result, models.DBProvinceWeather{
-			ProvinceID:       pid,
-			RainAvgPerYear:   RainAvgPerYear,
-			EvaporationRate:  EvaporationRate,
-			LeakageRate:      LeakageRate,
-			RunoffRate:       RunoffRate,
-			HighestFloodRate: HighestFloodRate,
-		})
-	}
-
-	WriteJSONToFile(saveJsonFile, result)
-
+	UpdateDataToDB()
 }
 
 func UpdateDataToDB() {
@@ -86,37 +35,21 @@ func UpdateDataToDB() {
 	db := myconnect.NewPostgres(myvar.ENV_DB_CONNECT)
 	appinit.MiGrateAllDB(db)
 
-	fileOri := "cmd/migrate/initialSetupData/data_e.json"
+	fileOri := "cmd/migrate/initialSetupData/i_r_q_e_s.json"
 
 	data, err := os.ReadFile(fileOri)
 	if err != nil {
 		log.Panicf("Error reading file: %v", err)
 	}
 
-	var result = []map[string]interface{}{}
+	var result = []models.DBProvinceWeather{}
 	if err := json.Unmarshal(data, &result); err != nil {
 		log.Panicf("Error decoding JSON: %v", err)
 	}
 
-	for i := range result {
-
-		pid, _ := strconv.Atoi(fmt.Sprint(result[i]["province_id"]))
-		dis := fmt.Sprint(result[i]["discription"])
-		symbol := fmt.Sprint(result[i]["symbol"])
-		unitTH := fmt.Sprint(result[i]["unit_th"])
-		unitThFull := fmt.Sprint(result[i]["unit_th_fullname"])
-		myvalue, _ := strconv.ParseFloat(fmt.Sprint(result[i]["value"]), 64)
-
-		var addData = models.DBWaterEvaporationRate{
-			Discription:   dis,
-			ProvinceID:    pid,
-			Symbol:        symbol,
-			UnitTH:        unitTH,
-			UnitFulnameTH: unitThFull,
-			Value:         myvalue,
-		}
-		err := db.Table(models.DBWaterEvaporationRate.TableName(models.DBWaterEvaporationRate{})).
-			Create(&addData).Error
+	for i, v := range result {
+		err := db.Table(models.DBProvinceWeather.TableName(models.DBProvinceWeather{})).
+			Create(&v).Error
 		if err != nil {
 			fmt.Println(result[i])
 			log.Panicf("Error create data: %v", err)
