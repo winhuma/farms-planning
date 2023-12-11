@@ -73,7 +73,7 @@ func (s *waterRainCol) CalWaterLostFromLeakage(ctx context.Context, bodyData mod
 	if err != nil {
 		return result, err
 	}
-	result = FormulaWaterLostFromLeakage(weatherValue.EvaporationRate, bodyData.SurfaceArea)
+	result = FormulaWaterLostFromLeakage(weatherValue.LeakageRate, bodyData.SurfaceArea)
 	return result, nil
 }
 
