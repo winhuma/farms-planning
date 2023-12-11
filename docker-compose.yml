@@ -1,5 +1,6 @@
 version: '3'
 services:
+
   backend:
     image: farms-planning-backend:latest
     environment:
@@ -7,3 +8,8 @@ services:
       PORT: '8081'
     ports:
       - 8081:8081
+
+  frontend:
+    image: farms-planning-frontend:latest
+    ports:
+      - 3001:80
