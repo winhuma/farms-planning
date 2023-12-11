@@ -34,7 +34,7 @@ func (h *handlers) ProvinceGet(c *fiber.Ctx) error {
 }
 
 func (h *handlers) WeatherGetAll(c *fiber.Ctx) error {
-	result, err := h.s.ProvinceGetAll(c.Context())
+	result, err := h.s.WeatherGetAll(c.Context())
 	if err != nil {
 		return err
 	}
