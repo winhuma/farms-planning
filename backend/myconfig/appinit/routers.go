@@ -78,14 +78,19 @@ func GetRouteWater(h handlers.HandlersWaterRequire) []appRoute {
 func GetRouteWaterCapacity(h handlers.HandlersWaterCapacity) []appRoute {
 	return []appRoute{
 		{
-			RoutePath:   "/capacity/avgrunoffyear",
+			RoutePath:   "/capacity/avgrunoff",
 			RouteMethod: fiber.MethodGet,
 			RouteFunc:   h.GetAverageRunoffPerYearAll,
 		},
 		{
-			RoutePath:   "/capacity/avgrunoffyear",
+			RoutePath:   "/capacity/avgrunoff",
 			RouteMethod: fiber.MethodPost,
 			RouteFunc:   h.GetAverageRunoffPerYearByProvinceID,
+		},
+		{
+			RoutePath:   "/capacity/avgrunoffyear",
+			RouteMethod: fiber.MethodPost,
+			RouteFunc:   h.CalAverageRunoffPerYear,
 		},
 		{
 			RoutePath:   "/capacity/surfacearea",
@@ -96,6 +101,16 @@ func GetRouteWaterCapacity(h handlers.HandlersWaterCapacity) []appRoute {
 			RoutePath:   "/capacity/areareceiverainwater",
 			RouteMethod: fiber.MethodPost,
 			RouteFunc:   h.CalareaReceivesRainwater,
+		},
+		{
+			RoutePath:   "/capacity/lostevaporation",
+			RouteMethod: fiber.MethodPost,
+			RouteFunc:   h.CalWaterLostFromEvaporation,
+		},
+		{
+			RoutePath:   "/capacity/lostleakage",
+			RouteMethod: fiber.MethodPost,
+			RouteFunc:   h.CalWaterLostFromLeakage,
 		},
 		{
 			RoutePath:   "/capacities",

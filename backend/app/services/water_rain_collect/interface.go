@@ -12,5 +12,6 @@ type ServiceWaterRainCollect interface {
 	CalAreaTerraceReceivesRainWater(ctx context.Context, bodyData models.BodyCalAreaReceivesRainwater) (float64, error)
 	CalAverageRunoffPerYear(ctx context.Context, bodyData models.BodyCalAverageRunoffPerYear) (float64, error)
 	CalWaterLostFromEvaporation(ctx context.Context, bodyData models.BodyCalWaterLostFromEvaporation) (float64, error)
+	CalWaterLostFromLeakage(ctx context.Context, bodyData models.BodyCalWaterLostFromLeakage) (float64, error)
 	CalWaterCapacity(ctx context.Context, bodyData models.BodyCalWaterCapacity) (float64, error)
 }

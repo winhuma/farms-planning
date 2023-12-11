@@ -90,6 +90,18 @@ func (h *hWaterCapacity) CalWaterLostFromEvaporation(c *fiber.Ctx) error {
 	return c.Status(200).JSON(mymodels.SetResponse("success", result))
 }
 
+func (h *hWaterCapacity) CalWaterLostFromLeakage(c *fiber.Ctx) error {
+	var mybody models.BodyCalWaterLostFromLeakage
+	if err := json.Unmarshal(c.Body(), &mybody); err != nil {
+		return err
+	}
+	result, err := h.swc.CalWaterLostFromLeakage(c.Context(), mybody)
+	if err != nil {
+		return err
+	}
+	return c.Status(200).JSON(mymodels.SetResponse("success", result))
+}
+
 func (h *hWaterCapacity) CalWaterCopacity(c *fiber.Ctx) error {
 	var mybody models.BodyCalWaterCapacity
 	if err := json.Unmarshal(c.Body(), &mybody); err != nil {

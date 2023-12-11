@@ -67,8 +67,13 @@ func (s *waterRainCol) CalWaterLostFromEvaporation(ctx context.Context, bodyData
 	return result, nil
 }
 
-func (s *waterRainCol) CalWaterLostFromLeakage(ctx context.Context) (float64, error) {
+func (s *waterRainCol) CalWaterLostFromLeakage(ctx context.Context, bodyData models.BodyCalWaterLostFromLeakage) (float64, error) {
 	var result float64
+	weatherValue, err := s.repo.ProvinceWeatherGetByProvince(bodyData.ProvinceID)
+	if err != nil {
+		return result, err
+	}
+	result = FormulaWaterLostFromLeakage(weatherValue.EvaporationRate, bodyData.SurfaceArea)
 	return result, nil
 }
 

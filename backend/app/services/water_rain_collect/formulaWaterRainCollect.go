@@ -19,7 +19,7 @@ func FormulaWaterLostFromEvaporation(evaporationValue float64, AreaTerraceReceiv
 
 func FormulaWaterLostFromLeakage(LeakageValue float64, AreaTerraceReceivesRainWater float64) float64 {
 	// SL
-	return LeakageValue * AreaTerraceReceivesRainWater
+	return (LeakageValue * AreaTerraceReceivesRainWater) / 2000
 }
 
 func FormulaWaterCopacity(WaterLostFromEvaporation float64, WaterLostFromLeakage float64, requireWaterValue float64) float64 {

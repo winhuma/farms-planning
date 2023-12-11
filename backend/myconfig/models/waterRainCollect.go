@@ -21,6 +21,10 @@ type (
 		ProvinceID  int     `json:"province_id"`
 		SurfaceArea float64 `json:"surface_area"`
 	}
+	BodyCalWaterLostFromLeakage struct {
+		ProvinceID  int     `json:"province_id"`
+		SurfaceArea float64 `json:"surface_area"`
+	}
 
 	BodyCalWaterCapacity struct {
 		WaterRequire        float64 `json:"water_require"`
