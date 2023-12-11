@@ -94,7 +94,7 @@ func GetRouteWaterCapacity(h handlers.HandlersWaterCapacity) []appRoute {
 		},
 		{
 			RoutePath:   "/capacity/areareceiverainwater",
-			RouteMethod: fiber.MethodGet,
+			RouteMethod: fiber.MethodPost,
 			RouteFunc:   h.CalareaReceivesRainwater,
 		},
 		{
