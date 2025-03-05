@@ -29,3 +29,4 @@ document.getElementById("sprinklerForm").addEventListener("submit", function(eve
     
     document.getElementById("result").innerHTML = resultText;
 });
+
