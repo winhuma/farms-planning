@@ -1,18 +1,31 @@
 document.getElementById("sprinklerForm").addEventListener("submit", function(event) {
     event.preventDefault();
     
-    let pressure = parseFloat(document.getElementById("pressure").value);
     let radius = parseFloat(document.getElementById("radius").value);
     let flowRate = parseFloat(document.getElementById("flowRate").value);
     let infiltration = parseFloat(document.getElementById("infiltration").value);
     
-    let area = Math.PI * Math.pow(radius, 2);
-    let waterDepth = (flowRate / area) * 10; // Convert to mm/min
-    let timeRequired = (waterDepth / (infiltration * 10)).toFixed(2); // Convert cm to mm
+    let area = Math.PI * Math.pow(radius, 2); // พื้นที่วงกลม
+    let height = flowRate / area; // ความสูงของน้ำที่ให้ (เมตร/นาที)
+    let depth = 4 * height * 100; // ความลึกของน้ำที่ให้ (มม.)
+    let infiltrationDepth = infiltration * 10; // แปลงอัตราซึมน้ำจากซม/นาที เป็น มม./นาที
     
-    document.getElementById("result").innerHTML = `<div class='alert alert-info'>
-        พื้นที่ที่รดน้ำได้: ${area.toFixed(2)} ตร.ม.<br>
-        ความลึกของน้ำที่ให้: ${waterDepth.toFixed(2)} มม./นาที<br>
-        เวลาในการรดน้ำ: ${timeRequired} นาที
-    </div>`;
+    let resultText;
+    if (depth <= infiltrationDepth) {
+        resultText = `<div class='alert alert-success'>
+            สามารถใช้สปริงเกลอร์ได้<br>
+            พื้นที่รดน้ำ: ${area.toFixed(2)} ตร.ม.<br>
+            ความลึกของน้ำที่ให้: ${depth.toFixed(2)} มม.
+        </div>`;
+    } else {
+        let timeRequired = (depth / infiltrationDepth).toFixed(2);
+        resultText = `<div class='alert alert-warning'>
+            ต้องกำหนดเวลาในการรดน้ำ<br>
+            พื้นที่รดน้ำ: ${area.toFixed(2)} ตร.ม.<br>
+            ความลึกของน้ำที่ให้: ${depth.toFixed(2)} มม.<br>
+            เวลาในการรดน้ำที่เหมาะสม: ${timeRequired} นาที
+        </div>`;
+    }
+    
+    document.getElementById("result").innerHTML = resultText;
 });
